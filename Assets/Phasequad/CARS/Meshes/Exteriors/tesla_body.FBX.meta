@@ -1,0 +1,194 @@
+fileFormatVersion: 2
+guid: f71c202602cc9614ba9d844b47794d48
+timeCreated: 1520354470
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: carbody
+    100002: glass
+    100004: glass_l
+    100006: l_f
+    100008: l_fr
+    100010: l_fr 1
+    100012: swheel
+    100014: //RootNode
+    100016: r_r
+    100018: r_rear
+    100020: r_rear001
+    100022: r_stop
+    100024: r_left
+    100026: r_right
+    100028: l_f001
+    100030: l_front
+    100032: Object002
+    100034: s_wheel
+    100036: Object001
+    100038: car_color
+    100040: f_glow
+    100042: f_left
+    100044: f_lights
+    100046: f_right
+    100048: r_lights
+    400000: carbody
+    400002: glass
+    400004: glass_l
+    400006: l_f
+    400008: l_fr
+    400010: l_fr 1
+    400012: swheel
+    400014: //RootNode
+    400016: r_r
+    400018: r_rear
+    400020: r_rear001
+    400022: r_stop
+    400024: r_left
+    400026: r_right
+    400028: l_f001
+    400030: l_front
+    400032: Object002
+    400034: s_wheel
+    400036: Object001
+    400038: car_color
+    400040: f_glow
+    400042: f_left
+    400044: f_lights
+    400046: f_right
+    400048: r_lights
+    2300000: carbody
+    2300002: glass
+    2300004: glass_l
+    2300006: l_f
+    2300008: l_fr
+    2300010: l_fr 1
+    2300012: swheel
+    2300014: r_r
+    2300016: r_rear
+    2300018: r_rear001
+    2300020: r_stop
+    2300022: r_left
+    2300024: r_right
+    2300026: l_f001
+    2300028: l_front
+    2300030: s_wheel
+    2300032: Object001
+    2300034: car_color
+    2300036: f_glow
+    2300038: f_left
+    2300040: f_lights
+    2300042: f_right
+    2300044: r_lights
+    3300000: carbody
+    3300002: glass
+    3300004: glass_l
+    3300006: l_f
+    3300008: l_fr
+    3300010: l_fr 1
+    3300012: swheel
+    3300014: r_r
+    3300016: r_rear
+    3300018: r_rear001
+    3300020: r_stop
+    3300022: r_left
+    3300024: r_right
+    3300026: l_f001
+    3300028: l_front
+    3300030: s_wheel
+    3300032: Object001
+    3300034: car_color
+    3300036: f_glow
+    3300038: f_left
+    3300040: f_lights
+    3300042: f_right
+    3300044: r_lights
+    4300000: carbody
+    4300002: swheel
+    4300004: glass
+    4300006: glass_l
+    4300008: l_f
+    4300010: l_fr
+    4300012: l_fr
+    4300014: r_r
+    4300016: r_stop
+    4300018: r_rear001
+    4300020: r_rear
+    4300022: r_right
+    4300024: r_left
+    4300026: l_f001
+    4300028: l_front
+    4300030: s_wheel
+    4300032: Object001
+    4300034: car_color
+    4300036: r_lights
+    4300038: f_glow
+    4300040: f_lights
+    4300042: f_left
+    4300044: f_right
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 2
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
