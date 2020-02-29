@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 114967098910860594}
   - component: {fileID: 33811978935554828}
   - component: {fileID: 137079782363020244}
-  - component: {fileID: -70025200259691062}
   - component: {fileID: -5419930340077972152}
   - component: {fileID: -7387299250581800748}
+  - component: {fileID: 9034341392808859214}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -162,27 +162,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_DirtyAABB: 1
---- !u!114 &-70025200259691062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683365176537744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1336ede672dfee24485c4914a3c096e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabBegin: 0.55
-  grabEnd: 0.35
-  m_parentHeldObject: 1
-  m_moveHandPosition: 0
-  m_gripTransform: {fileID: 4149990622606170}
-  m_grabVolumes: []
-  m_controller: 0
-  m_parentTransform: {fileID: 0}
-  m_player: {fileID: 0}
 --- !u!54 &-5419930340077972152
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -213,3 +192,28 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9034341392808859214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683365176537744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1336ede672dfee24485c4914a3c096e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabBegin: 0.55
+  grabEnd: 0.35
+  m_parentHeldObject: 0
+  m_moveHandPosition: 0
+  m_gripTransform: {fileID: 4149990622606170}
+  m_grabVolumes: []
+  m_controller: 0
+  m_parentTransform: {fileID: 0}
+  m_player: {fileID: 0}
+  FixXAxis: 0
+  FixYAxis: 1
+  FixZAxis: 1
+  FixRotation: 1

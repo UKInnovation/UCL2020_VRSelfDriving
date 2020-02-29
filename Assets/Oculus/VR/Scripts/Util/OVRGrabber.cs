@@ -153,8 +153,10 @@ public class OVRGrabber : MonoBehaviour
         if (alreadyUpdated) return;
         alreadyUpdated = true;
 
-        Vector3 destPos = m_parentTransform.TransformPoint(m_anchorOffsetPosition);
-        Quaternion destRot = m_parentTransform.rotation * m_anchorOffsetRotation;
+        // Vector3 destPos = m_parentTransform.TransformPoint(m_anchorOffsetPosition);
+        // Quaternion destRot = m_parentTransform.rotation * m_anchorOffsetRotation;
+        Vector3 destPos = transform.position;
+        Quaternion destRot = transform.rotation;
 
         if (m_moveHandPosition)
         {
