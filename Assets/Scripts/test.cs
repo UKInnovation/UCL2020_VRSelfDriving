@@ -6,7 +6,14 @@ public class test : MonoBehaviour
 {
     public Rigidbody rb;
 
-    // Update is called once per frame
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
+    {
+        this.GetComponent<Canvas>().enabled = false;
+    }
     void FixedUpdate()
     {
         if(transform.parent != null)
