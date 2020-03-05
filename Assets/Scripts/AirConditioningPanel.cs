@@ -22,7 +22,7 @@ public class AirConditioningPanel : MonoBehaviour
     /// </summary>
     void Start()
     {
-        switchToMode(2);
+        switchToMode(1);
     }
     public void switchToMode(int num)
     {

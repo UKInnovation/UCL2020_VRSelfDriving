@@ -15,7 +15,7 @@ namespace YoyouOculusFramework
         }
 
         void Start() {
-            // deActive();     
+            deActive();     
         }
         public void setActive()
         {

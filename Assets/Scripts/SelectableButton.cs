@@ -15,7 +15,7 @@ namespace YoyouOculusFramework
             RawImage[] rawImages = transform.gameObject.GetComponentsInChildren<RawImage>();
             for (int i = 0; i < rawImages.Length; i++)
             {
-                rawImages[i].color = new Color(0,0,0);
+                rawImages[i].color = new Color(0,255,248);
             }
         }
         public void CancelSelect()
@@ -23,7 +23,7 @@ namespace YoyouOculusFramework
             RawImage[] rawImages = transform.gameObject.GetComponentsInChildren<RawImage>();
             for (int i = 0; i < rawImages.Length; i++)
             {
-                rawImages[i].color = new Color(255,255,255);
+                rawImages[i].color = new Color(0,99,96);
             }
         }
     }

@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262a01a0f3fd38a479bd3643a5fe6afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPage: {fileID: 8967526686329347877, guid: 93a218801337bda4da091a3222b32c2f,
+  startPage: {fileID: 1555956299546258765, guid: 7812fb39ba570cf4c859d6782b03dd0f,
     type: 3}
   cameraPage: {fileID: 8967526686329347877, guid: 584df9d94065be344939d254e4b6da64,
     type: 3}
@@ -259,7 +259,7 @@ MonoBehaviour:
     type: 3}
   gamePage: {fileID: 8967526686329347877, guid: 27415ee61811c964c86449c9b15962e3,
     type: 3}
-  startPageButton: {fileID: 7858255249098466979, guid: f3b8f6e0b5c1a7345a8d9a791ef3a815,
+  startPageButton: {fileID: 2214977386954227581, guid: f7144eafd89380b44b7bc79893e099c5,
     type: 3}
   CameraPageButton: {fileID: 7858255249098466979, guid: 552bc9b28972ad6459108f0a343406d2,
     type: 3}
