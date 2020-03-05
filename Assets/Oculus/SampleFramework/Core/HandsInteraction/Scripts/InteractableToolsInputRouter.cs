@@ -23,7 +23,6 @@ namespace OculusSampleFramework
 	/// </summary>
 	public class InteractableToolsInputRouter : MonoBehaviour
 	{
-		public Text text;
 		private static InteractableToolsInputRouter _instance;
 		private bool _leftPinch, _rightPinch;
 
@@ -289,7 +288,6 @@ namespace OculusSampleFramework
 			// tell added interactable what state we are now in
 			foreach (Interactable addedInteractableKey in _addedInteractables)
 			{
-				text.text = addedInteractableKey.gameObject.name;
 				var addedInteractable = newCollisionMap[addedInteractableKey];
 				var collisionDepth = addedInteractable.CollisionDepth;
 				addedInteractableKey.UpdateCollisionDepth(interactableTool, InteractableCollisionDepth.None,

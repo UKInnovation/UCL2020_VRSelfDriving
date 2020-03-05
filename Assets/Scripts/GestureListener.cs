@@ -46,7 +46,7 @@ public class GestureListener : MonoBehaviour
         UpdateHandsStates();
         CalculateAveragePinch();
         InvokeGestureEvents();
-        // text.text = RightHandStates.Peek().fingerPinchStrengths[1].ToString();
+        text.text = RightHandT.localEulerAngles.x.ToString() + RightHandT.localEulerAngles.y.ToString() + RightHandT.localEulerAngles.z.ToString();
     }
 
     private void UpdateHandsStates()
