@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using OculusBallGame;
 public class GameCanvas : MonoBehaviour
 {
     public BallGame ballGamePrefab;
     public Vector3 gamePosOffset;
+    public Text message;
     private BallGame ballGame;
 
     public void LoadGame()
@@ -20,6 +22,7 @@ public class GameCanvas : MonoBehaviour
 
     void OnGameOver()
     {
+        message.text = "Your Score" + ballGame.score.ToString();
         Destroy(ballGame.gameObject);
         foreach (Transform child in transform)
             child.gameObject.SetActive(true);

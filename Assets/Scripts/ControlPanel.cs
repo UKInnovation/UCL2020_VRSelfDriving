@@ -52,7 +52,9 @@ public class ControlPanel : MonoBehaviour
         initialize_Canvas(ref cameraPage, PageAnchor);
         initialize_Canvas(ref musicPage, PageAnchor);
         initialize_Canvas(ref gamePage, PageAnchor);
-        cameraPage.enabled = musicPage.enabled = gamePage.enabled = false;
+        gamePage.gameObject.SetActive(false);
+        musicPage.gameObject.SetActive(false);
+        cameraPage.gameObject.SetActive(false);
 
         initialize_Button(ref startPageButton, MainPageButtonAnchor, delegate{toStartPage();});
         initialize_Button(ref CameraPageButton, CameraPageButtonAnchor, delegate{toCameraPage();});

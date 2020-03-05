@@ -12,7 +12,7 @@ namespace OculusBallGame
 
         public event UnityAction GameOverEvent;
 
-        private int score;
+        public int score;
 
         void Awake() 
         {
