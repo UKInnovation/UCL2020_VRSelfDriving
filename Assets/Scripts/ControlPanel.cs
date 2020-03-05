@@ -82,12 +82,12 @@ public class ControlPanel : MonoBehaviour
 
     private void closePage(Canvas page)
     {
-        page.enabled = false;
+        page.gameObject.SetActive(false);
     }
 
     private void openPage(Canvas page)
     {
-        page.enabled = true;
+        page.gameObject.SetActive(true);
     }
 
     public void toStartPage()

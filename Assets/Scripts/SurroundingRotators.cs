@@ -3,32 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SurroundingRotators : MonoBehaviour
+namespace YoyouOculusFramework
 {
-    private Image[] images;
-
-    private void Awake() 
+    public class SurroundingRotators : MonoBehaviour
     {
-        images = transform.GetComponentsInChildren<Image>();    
-    }
+        private Image[] images;
 
-    void Start() {
-       deActive();     
-    }
-    public void setActive()
-    {
-        foreach(Image image in images)
+        private void Awake() 
         {
-            image.enabled = true;
+            images = transform.GetComponentsInChildren<Image>();    
+        }
+
+        void Start() {
+            // deActive();     
+        }
+        public void setActive()
+        {
+            foreach(Image image in images)
+            {
+                image.enabled = true;
+            }
+        }
+
+        
+        public void deActive()
+        {
+            foreach(Image image in images)
+            {
+                image.enabled = false;
+            }
         }
     }
 
-    
-    public void deActive()
-    {
-        foreach(Image image in images)
-        {
-            image.enabled = false;
-        }
-    }
 }
