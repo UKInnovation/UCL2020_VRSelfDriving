@@ -29,7 +29,7 @@ namespace YoyouOculusFramework
         public UnityEvent SlapRight;
         public UnityEvent OKgesture;
         private GestureEvent SlapRightG;
-        private bool[] _hasGesture = new bool[]{false, false, false, false, false};
+        private bool[] _hasGesture = new bool[]{false, false, false, false, false, false, false, false, false, false};
         public bool[] HasGesture{get{return _hasGesture;}}
 
         void Awake() 
@@ -56,7 +56,7 @@ namespace YoyouOculusFramework
             CalculateAveragePinch();
             UpdateCurrentGesture();
             InvokeGestureEvents();
-            text.text = HasGesture[(int)Gesture.FaceUp].ToString();
+            text.text = HasGesture[(int)Gesture.LHFaceUp].ToString();
         }
 
         private void UpdateHandsStates()
@@ -134,7 +134,7 @@ namespace YoyouOculusFramework
                         angleDiff = 360 - angleDiff;
                         if(angleDiff > 100){
                             SlapRightG.Invoke();
-                            _hasGesture[(int)Gesture.SlapRight] = true;
+                            _hasGesture[(int)Gesture.RHSlapRight] = true;
                         }
                     }
                 }
@@ -145,27 +145,93 @@ namespace YoyouOculusFramework
             HandState[] rightHandStates = RightHandStates.ToArray();
             if (AveragePinchStrengthRight[1] == 1 && AveragePinchStrengthRight[2] == 0){
                 OKgesture.Invoke();
-                _hasGesture[(int)Gesture.OK] = true;
+                _hasGesture[(int)Gesture.RHOK] = true;
             }
         }
 
         private void UpdateCurrentGesture()
         {
-            if(isFaceUP()){
-                _hasGesture[(int)Gesture.FaceUp] = true;
-            }
-            else{
-                _hasGesture[(int)Gesture.FaceUp] = false;
-            }
+            UpdateHandFaceUp();
         }
 
-        private bool isFaceUP()
+        private void UpdateHandFaceUp()
         {
-            Quaternion rightHandRotation = RightHandT.rotation;
-            Vector3 rightHandEulerAngle = rightHandRotation.eulerAngles;
-            if((rightHandEulerAngle.x < 30 || rightHandEulerAngle.x > 320) 
-                && rightHandEulerAngle.y < 300 && rightHandEulerAngle.y > 230
-                && rightHandEulerAngle.z > 120 && rightHandEulerAngle.z < 240)
+            if(RHisFaceUP()){
+                _hasGesture[(int)Gesture.RHFaceUp] = true;
+            }
+            else{
+                _hasGesture[(int)Gesture.RHFaceUp] = false;
+            }
+
+            if(LHisFaceUP()){
+                _hasGesture[(int)Gesture.LHFaceUp] = true;
+            }
+            else{
+                _hasGesture[(int)Gesture.LHFaceUp] = false;
+            }
+
+            if(RHisFaceDown()){
+                _hasGesture[(int)Gesture.RHFaceDown] = true;
+            }
+            else{
+                _hasGesture[(int)Gesture.RHFaceDown] = false;
+            }
+
+            if(LHisFaceDown()){
+                _hasGesture[(int)Gesture.LHFaceDown] = true;
+            }
+            else{
+                _hasGesture[(int)Gesture.LHFaceDown] = false;
+            }
+            
+        }
+
+        private bool RHisFaceUP()
+        {
+            Quaternion HandRotation = RightHandT.rotation;
+            Vector3 HandEulerAngle = HandRotation.eulerAngles;
+            if((HandEulerAngle.x < 30 || HandEulerAngle.x > 320) 
+                && HandEulerAngle.y < 300 && HandEulerAngle.y > 230
+                && HandEulerAngle.z > 120 && HandEulerAngle.z < 240)
+                {
+                    return true;
+                }
+            return false;
+        }
+
+        private bool RHisFaceDown()
+        {
+            Quaternion HandRotation = RightHandT.rotation;
+            Vector3 HandEulerAngle = HandRotation.eulerAngles;
+            if((HandEulerAngle.x < 30 || HandEulerAngle.x > 320) 
+                && HandEulerAngle.y < 120 && HandEulerAngle.y > 60
+                && (HandEulerAngle.z > 330 || HandEulerAngle.z < 30))
+                {
+                    return true;
+                }
+            return false;
+        }
+
+        private bool LHisFaceUP()
+        {
+            Quaternion HandRotation = LeftHandT.rotation;
+            Vector3 HandEulerAngle = HandRotation.eulerAngles;
+            if((HandEulerAngle.x < 30 || HandEulerAngle.x > 320) 
+                && HandEulerAngle.y < 300 && HandEulerAngle.y > 230
+                && (HandEulerAngle.z < 30 || HandEulerAngle.z > 320))
+                {
+                    return true;
+                }
+            return false;
+        }
+
+        private bool LHisFaceDown()
+        {
+            Quaternion HandRotation = LeftHandT.rotation;
+            Vector3 HandEulerAngle = HandRotation.eulerAngles;
+            if((HandEulerAngle.x < 30 || HandEulerAngle.x > 320) 
+                && HandEulerAngle.y < 130 && HandEulerAngle.y > 60
+                && (HandEulerAngle.z > 140 && HandEulerAngle.z < 200))
                 {
                     return true;
                 }
@@ -206,11 +272,16 @@ namespace YoyouOculusFramework
 
         public enum Gesture
         {
-            SlapRight = 0,
-            SlapLeft = 1,
-            OK = 2,
-            FaceUp = 3,
-            FaceDown = 4
+            RHSlapRight = 0,
+            RHSlapLeft = 1,
+            RHOK = 2,
+            RHFaceUp = 3,
+            RHFaceDown = 4,
+            LHSlapRight = 5,
+            LHSlapLeft = 6,
+            LHOK = 7,
+            LHFaceUp = 8,
+            LHFaceDown = 9
         }
     }
 }

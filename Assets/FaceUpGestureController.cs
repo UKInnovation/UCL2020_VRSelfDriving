@@ -14,11 +14,15 @@ namespace YoyouOculusFramework
         private GestureListener gestureListener;
         private Transform LeftHandT;
         private Transform RightHandT;
-        private Vector3 currentHandPos;
-        private Vector3 prevHandPos;
-        private bool isCurrentHandFaceUp;
-        private bool isPrevHandFaceUp;
-        public event UnityAction<float> OnRisingUp;
+        private Vector3 RHcurrentPos;
+        private Vector3 RHprevPos;
+        private bool RHisFaceUp;
+        private bool RHisFaceDwon;
+        private Vector3 LHcurrentPos;
+        private Vector3 LHprevPos;
+        private bool LHisFaceUp;
+        private bool LHisFaceDwon;
+        public event UnityAction<float, float> OnRisingOrFalling;
         public Text text;
   
         void Awake() 
@@ -31,23 +35,61 @@ namespace YoyouOculusFramework
             RightHandT = Hands.Instance.RightHand.gameObject.transform;
             gestureListener = GestureListener.INSTANCE;
 
-            currentHandPos = RightHandT.transform.position;
-            isCurrentHandFaceUp = gestureListener.HasGesture[(int)GestureListener.Gesture.FaceUp];
+            RHcurrentPos = RightHandT.transform.position;
+            LHcurrentPos = LeftHandT.transform.position;
         }
 
         // Update is called once per frame
         void Update()
         {
-            prevHandPos = currentHandPos;
-            isPrevHandFaceUp = isCurrentHandFaceUp;
-            currentHandPos = RightHandT.transform.position;
-            isCurrentHandFaceUp = gestureListener.HasGesture[(int)GestureListener.Gesture.FaceUp];
-
-            if(OnRisingUp != null && isPrevHandFaceUp && isCurrentHandFaceUp && currentHandPos.y - prevHandPos.y > 0)
-            // if(OnRisingUp != null && currentHandPos.y - prevHandPos.y > 0)
+            if(OnRisingOrFalling != null)
             {
-                text.text = "here";
-                OnRisingUp(currentHandPos.y - prevHandPos.y);
+                text.text = "amHere";
+                RHprevPos = RHcurrentPos;
+                LHprevPos = LHcurrentPos;
+
+                RHcurrentPos = RightHandT.transform.position;
+                LHcurrentPos = LeftHandT.transform.position;
+
+                RHisFaceUp = gestureListener.HasGesture[(int)GestureListener.Gesture.RHFaceUp];
+                LHisFaceUp = gestureListener.HasGesture[(int)GestureListener.Gesture.LHFaceUp];
+
+                RHisFaceDwon = gestureListener.HasGesture[(int)GestureListener.Gesture.RHFaceDown];
+                LHisFaceDwon = gestureListener.HasGesture[(int)GestureListener.Gesture.LHFaceDown];
+
+                float RHamount = 0;
+                float LHamount = 0;
+
+                if(RHisFaceUp)
+                {
+                    if(RHcurrentPos.y - RHprevPos.y > 0)
+                    {
+                        RHamount = RHcurrentPos.y - RHprevPos.y;
+                    }
+                }
+                else if(RHisFaceDwon)
+                {
+                    if(RHcurrentPos.y - RHprevPos.y < 0)
+                    {
+                        RHamount = RHcurrentPos.y - RHprevPos.y;
+                    }
+                }
+
+                if(LHisFaceUp)
+                {
+                    if(LHcurrentPos.y - LHprevPos.y > 0)
+                    {
+                        LHamount = LHcurrentPos.y - LHprevPos.y;
+                    }
+                }
+                else if(LHisFaceDwon)
+                {
+                    if(LHcurrentPos.y - LHprevPos.y < 0)
+                    {
+                        LHamount = LHcurrentPos.y - LHprevPos.y;
+                    }
+                }
+                OnRisingOrFalling(RHamount, LHamount);
             }
         }
     }

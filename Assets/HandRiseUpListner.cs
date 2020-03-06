@@ -13,19 +13,19 @@ namespace YoyouOculusFramework
             faceUpGestureListner = FaceUpGestureController.INSTANCE;
         }
 
-        protected virtual void OnHandRisingUp(float amount)
+        protected virtual void OnHandRiseORFall(float RHamount, float LHamount)
         {
 
         }
 
         public virtual void AttachToController()
         {
-            faceUpGestureListner.OnRisingUp += OnHandRisingUp;
+            faceUpGestureListner.OnRisingOrFalling += OnHandRiseORFall;
         }
 
         public virtual void DeAttachToController()
         {
-            faceUpGestureListner.OnRisingUp -= OnHandRisingUp;
+            faceUpGestureListner.OnRisingOrFalling -= OnHandRiseORFall;
         }
 
     }

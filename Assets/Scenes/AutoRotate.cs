@@ -6,7 +6,6 @@ namespace YoyouOculusFramework
 {
     public class AutoRotate : MonoBehaviour
     {
-        [SerializeField]
         private float rotatingSpeed = 5f;
         [SerializeField]
         private float x_changeShapeSpeed = 0.1f;
@@ -57,6 +56,11 @@ namespace YoyouOculusFramework
                     y_reach_max_size = false;
                 }
             }
+        }
+
+        public void ChangeRotateSpeed(float speed)
+        {
+            rotatingSpeed = speed;
         }
     }
 

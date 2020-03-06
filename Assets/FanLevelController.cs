@@ -6,11 +6,11 @@ using System;
 
 namespace YoyouOculusFramework
 {
-    public class TemperatureController : HandRiseUpListner
+    public class FanLevelController : HandRiseUpListner
     {
-        private float Temperature = 20f;
+        private float FanLevel = 10f;
         [SerializeField]
-        private Text TemperatureT;
+        private Text FanLevelT;
         private float timer;
         [SerializeField]
         private AutoRotate surroundCircle;
@@ -23,24 +23,24 @@ namespace YoyouOculusFramework
         void Start()
         {
             faceUpGestureListner = FaceUpGestureController.INSTANCE;
-            TemperatureT.text = ((int)Temperature).ToString();
+            FanLevelT.text = ((int)FanLevel).ToString();
         }
         protected override void OnHandRiseORFall(float RHamount, float LHamount)
         {
-            Temperature += RHamount * 20 + LHamount * 20;
-            if(Temperature > 30){
-                Temperature = 30;
+            FanLevel += RHamount * 20 + LHamount * 20;
+            if(FanLevel > 20){
+                FanLevel = 20;
             }
-            else if(Temperature < 16){
-                Temperature = 16;
+            else if(FanLevel < 0){
+                FanLevel = 0;
             }
-            TemperatureT.text = ((int)Temperature).ToString();
+            FanLevelT.text = ((int)FanLevel).ToString();
         }
 
         public override void AttachToController()
         {
             faceUpGestureListner.OnRisingOrFalling += OnHandRiseORFall;
-            surroundCircle.ChangeRotateSpeed(120);
+            // surroundCircle.ChangeRotateSpeed(120);
             timer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             Attached = true;
             
