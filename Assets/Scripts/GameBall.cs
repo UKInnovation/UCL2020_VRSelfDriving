@@ -9,7 +9,7 @@ namespace OculusBallGame
         [SerializeField]
         private Rigidbody ball_rb;
         [SerializeField]
-        private int magnitude;
+        private float magnitude;
 
         // Update is called once per frame
         public void OnGameStart()
