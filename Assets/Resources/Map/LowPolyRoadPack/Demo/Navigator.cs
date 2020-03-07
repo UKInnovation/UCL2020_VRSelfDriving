@@ -66,7 +66,7 @@ namespace VehicleNavigation
             while(vertex != null)
             {
                 vertex.setActive();
-                if(vertex.Prev_Edge != null) vertex.Prev_Edge.setActive();
+                if(vertex.Prev_Edge != null) vertex.Prev_Edge.Activate();
                 vertex = vertex.Prev_Ver;
             }
             shortestRoute.Reverse();
