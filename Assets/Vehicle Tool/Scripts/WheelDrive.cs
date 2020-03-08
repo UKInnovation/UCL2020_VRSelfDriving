@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-
+using VehicleNavigation;
 [Serializable]
 public enum DriveType
 {
@@ -11,6 +11,7 @@ public enum DriveType
 
 public class WheelDrive : MonoBehaviour
 {
+	public NavigatorListner navigator;
     [Tooltip("Maximum steering angle of the wheels")]
 	public float maxAngle = 30f;
 	[Tooltip("Maximum torque applied to the driving wheels")]
@@ -62,10 +63,8 @@ public class WheelDrive : MonoBehaviour
 
 		// float angle = maxAngle * Input.GetAxis("Horizontal");
 		// float torque = maxTorque * Input.GetAxis("Vertical");
-		float angle = getAngle() * 0.3f;
-		
-		Debug.Log(angle);
-		float torque = maxTorque;
+		float angle = navigator.NextWheelAngle * 0.3f;
+		float torque = navigator.NextTorque * maxTorque;
 
 		float handBrake = Input.GetKey(KeyCode.X) ? brakeTorque : 0;
 

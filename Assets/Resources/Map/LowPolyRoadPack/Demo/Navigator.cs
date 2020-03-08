@@ -31,7 +31,7 @@ namespace VehicleNavigation
 
         void Start()
         {
-            getShortestRoute(StartPoint, EndPoint);    
+            // getShortestRoute(StartPoint, EndPoint);    
         }
 
         public List<Vertex> getShortestRoute(Vertex StartPoint, Vertex Destnation) 

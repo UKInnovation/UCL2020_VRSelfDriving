@@ -24,11 +24,17 @@ namespace VehicleNavigation
         void Update() {
             if(FromEdge.isActive && ToEdge.isActive && !isActivate)
             {
-                Activate();
+                if(!isActivate)
+                {
+                    Activate();
+                }
             }
             else if(isActivate)
             {
-                DeActivate();
+                if(isActivate)
+                {
+                    DeActivate();
+                }
             }
         }
 
