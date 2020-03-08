@@ -13,6 +13,7 @@ namespace VehicleNavigation
         private Vertex _endVertex;
         private float _distance;
         private Rail _rail;
+        private Canvas _routeDisplayer;
 
         public Vector3 Direction{get{return _direction;}}
         public Vertex StartVertex{get{return _startVertex;}}
@@ -25,18 +26,23 @@ namespace VehicleNavigation
         /// </summary>
         void Awake()
         {
-            _rail = this.GetComponent<Rail>();    
+            _rail = this.GetComponent<Rail>();
+            _routeDisplayer = this.GetComponentInChildren<Canvas>(); 
+
+            _routeDisplayer.enabled = false;
         }
 
         public void Activate()
         {
             _rail.Activate();
+            _routeDisplayer.enabled = true;
             isActive = true;
         }
 
         public void DeActivate()
         {
             _rail.DeActivate();
+            _routeDisplayer.enabled = true;
             isActive = false;
         }
     }   

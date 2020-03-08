@@ -27,6 +27,7 @@ namespace VehicleNavigation
             _railway.isTrigger = true;
             _railway.enabled = true;
             _isActive = false;
+            this.GetComponent<MeshRenderer>().enabled = false;
             // DeActivate();
         }
 

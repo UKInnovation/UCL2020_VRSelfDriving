@@ -24,8 +24,15 @@ namespace VehicleNavigation
 
         public void directTo(Vertex vertex)
         {
-            Vertex currentEdgeStartVertex = navigatorListner.CurrentRail.gameObject.GetComponent<Edge>().StartVertex;
-            Debug.Log(currentEdgeStartVertex.gameObject.name);
+            Vertex currentEdgeStartVertex;
+            if(navigatorListner.CurrentRail.GetComponent<Edge>() != null)
+            {
+                currentEdgeStartVertex = navigatorListner.CurrentRail.GetComponent<Edge>().StartVertex;
+            }
+            else
+            {
+                currentEdgeStartVertex = navigatorListner.CurrentRail.transform.parent.GetComponent<Curve>().FromEdge.StartVertex;
+            }
             navigator.getShortestRoute(currentEdgeStartVertex, vertex);
         }
 

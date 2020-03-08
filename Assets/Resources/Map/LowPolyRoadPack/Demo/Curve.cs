@@ -7,22 +7,26 @@ namespace VehicleNavigation
     public class Curve :MonoBehaviour
     {
         [SerializeField]
-        private Edge FromEdge;
+        private Edge _fromEdge;
         [SerializeField]
-        private Edge ToEdge;
+        private Edge _toEdge;
         private List<Rail> rails;
         private bool isActivate = false;
+        private Canvas _routeDisplayer;
 
+        public Edge FromEdge{get{return _fromEdge;}}
+        public Edge ToEdge{get{return _toEdge;}}
         /// <summary>
         /// Awake is called when the script instance is being loaded.
         /// </summary>
         void Awake()
         {
             rails = new List<Rail>(this.GetComponentsInChildren<Rail>());
+            _routeDisplayer = this.GetComponentInChildren<Canvas>();
         }
 
         void Update() {
-            if(FromEdge.isActive && ToEdge.isActive && !isActivate)
+            if(_fromEdge.isActive && _toEdge.isActive && !isActivate)
             {
                 if(!isActivate)
                 {
