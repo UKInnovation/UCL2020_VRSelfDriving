@@ -69,7 +69,8 @@ public class ControlPanel : MonoBehaviour
         element = Instantiate(element);
         element.transform.SetParent(transform);
         element.GetComponent<RectTransform>().localPosition = Anchor.GetComponent<RectTransform>().localPosition;
-        element.GetComponent<RectTransform>().localRotation = Anchor.GetComponent<RectTransform>().localRotation;       
+        element.GetComponent<RectTransform>().localRotation = Anchor.GetComponent<RectTransform>().localRotation;
+        element.GetComponent<RectTransform>().localScale = Anchor.GetComponent<RectTransform>().localScale;    
     }
 
     private void initialize_Button(ref HandTrackingButton button, RectTransform Anchor, UnityAction call)

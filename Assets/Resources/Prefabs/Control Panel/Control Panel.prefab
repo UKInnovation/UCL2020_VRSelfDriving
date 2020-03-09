@@ -257,11 +257,11 @@ MonoBehaviour:
     type: 3}
   musicPage: {fileID: 8967526686329347877, guid: f1fa14aa5dc55564882c1667d516074a,
     type: 3}
-  gamePage: {fileID: 8967526686329347877, guid: 27415ee61811c964c86449c9b15962e3,
+  gamePage: {fileID: 2113481939130264645, guid: 3e2d170ce1a71a04383193daaac5e4d0,
     type: 3}
   startPageButton: {fileID: 2214977386954227581, guid: f7144eafd89380b44b7bc79893e099c5,
     type: 3}
-  CameraPageButton: {fileID: 7858255249098466979, guid: 552bc9b28972ad6459108f0a343406d2,
+  CameraPageButton: {fileID: 6626420442488769669, guid: 1068570f2b0644a42b8964105177c9be,
     type: 3}
   musicPageButton: {fileID: 7858255249098466979, guid: e1b541e28658dc54397cbc467468cedb,
     type: 3}
