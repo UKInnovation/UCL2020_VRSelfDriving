@@ -253,7 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPage: {fileID: 1555956299546258765, guid: 7812fb39ba570cf4c859d6782b03dd0f,
     type: 3}
-  cameraPage: {fileID: 8967526686329347877, guid: 584df9d94065be344939d254e4b6da64,
+  cameraPage: {fileID: 36161852783303466, guid: ca1b4131bbb60224e97ea736a339ad5c,
     type: 3}
   musicPage: {fileID: 8967526686329347877, guid: f1fa14aa5dc55564882c1667d516074a,
     type: 3}
