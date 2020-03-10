@@ -9,23 +9,36 @@ namespace VehicleNavigation
     {
         [SerializeField]
         private HandTrackingButton _gridPrefeb;
-        [SerializeField]
         private Camera MapCamera;
+        private List<HandTrackingButton> grids = new List<HandTrackingButton>();
 
         public GameObject prefeb;
+        // [SerializeField]
+        // private List<Transform> vertices;
+
         [SerializeField]
-        private List<Transform> vertices;
-        /// <summary>
-        /// Awake is called when the script instance is being loaded.
-        /// </summary>
+        private HandTrackingButton SizeIncreaseButton;
+        [SerializeField]
+        private HandTrackingButton SizeDecreaseButton;
+        [SerializeField]
+        private HandTrackingButton NavigationButton;
         void Awake()
         {
             initializeGrid();
+            MapCamera = GameObject.Find("MapCamera").GetComponent<Camera>();
+            NavigationButton.OnEnterActionZone.AddListener(OnNavigationButtonPressed);
+            SizeIncreaseButton.OnStayInActionZone.AddListener(OnIncreseButtonHold);
+            SizeDecreaseButton.OnStayInActionZone.AddListener(OnDecreaseButtonHold);
         }
 
-        void Start() {
-            NavigateTo(new Vector2(300,300));
-        }
+        /// <summary>
+        /// Update is called every frame, if the MonoBehaviour is enabled.
+        /// </summary>
+        // void Update()
+        // {
+        //     OnDecreaseButtonHold();
+        // }
+
 
         private void initializeGrid()
         {
@@ -48,6 +61,7 @@ namespace VehicleNavigation
                 while(currentGridPos.x < canvas_width/2)
                 {
                     HandTrackingButton grid = Instantiate(_gridPrefeb, transform.localPosition, transform.localRotation);
+                    grids.Add(grid);
                     grid.GetComponent<RectTransform>().localScale = canvsRect.localScale;
                     grid.transform.parent = this.transform;
                     grid.GetComponent<RectTransform>().localPosition = currentGridPos;
@@ -61,6 +75,8 @@ namespace VehicleNavigation
 
         private void NavigateTo(Vector2 relativePos)
         {
+            SetActivateGrids(false);
+
             RectTransform canvsRect = this.GetComponent<RectTransform>();
             float canvas_high = canvsRect.sizeDelta.y;
             float canvas_width = canvsRect.sizeDelta.x;
@@ -82,22 +98,67 @@ namespace VehicleNavigation
             Vector3 realWorldPos = transform.position + (new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)) * realWorldrelativePos.magnitude);
             
 
-            float shortestDistance = float.MaxValue;
-            Transform closestVertex = null;
-            foreach(Transform vertex in vertices)
+            // float shortestDistance = float.MaxValue;
+            // Transform closestVertex = null;
+            // foreach(Transform vertex in vertices)
+            // {
+            //     float Distance = Vector3.Distance(vertex.position, realWorldPos);
+            //     if(Distance < shortestDistance)
+            //     {
+            //         Debug.Log(vertex.gameObject.name);
+            //         shortestDistance = Distance;
+            //         closestVertex = vertex;
+            //     }
+            // }
+
+            // if(closestVertex != null){
+            //     Destroy(closestVertex.gameObject);
+            // }
+        }
+
+        private void OnNavigationButtonPressed()
+        {
+            SetActivateGrids(true);
+        }
+
+        private void SetActivateGrids(bool activate)
+        {
+            if(activate)
             {
-                float Distance = Vector3.Distance(vertex.position, realWorldPos);
-                if(Distance < shortestDistance)
+                foreach(HandTrackingButton grid in grids)
                 {
-                    Debug.Log(vertex.gameObject.name);
-                    shortestDistance = Distance;
-                    closestVertex = vertex;
+                    grid.enabled = true;
                 }
             }
-
-            if(closestVertex != null){
-                Destroy(closestVertex.gameObject);
+            else
+            {
+                foreach(HandTrackingButton grid in grids)
+                {
+                    grid.enabled = false;
+                }
             }
+        }
+
+        private void ChangeMapSize(float amount)
+        {
+            MapCamera.orthographicSize += amount;
+            Debug.Log("here");
+            if(MapCamera.orthographicSize < 5){
+                MapCamera.orthographicSize = 5;
+            }
+            else if(MapCamera.orthographicSize > 100){
+                MapCamera.orthographicSize = 100;
+            }
+        }
+
+        private void OnIncreseButtonHold()
+        {
+            ChangeMapSize(-0.3f);
+        }
+
+        private void OnDecreaseButtonHold()
+        {
+            ChangeMapSize(0.3f);
         }
     }
 }

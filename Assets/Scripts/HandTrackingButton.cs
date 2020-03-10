@@ -13,6 +13,7 @@ namespace YoyouOculusFramework
 
 		public UnityEvent OnEnterActionZone;
 		public UnityEvent OnExitActionZone;
+		public UnityEvent OnStayInActionZone;
 		[SerializeField] private GameObject _actionZone = null;
 		[SerializeField] private ContactTest[] _contactTests = null;
 		// for positive side tests, the contact position must be on the positive side of the plane
@@ -93,6 +94,14 @@ namespace YoyouOculusFramework
 			  buttonZonePlane.GetSide(collidingTool.InteractionPosition);
 
 			bool switchingStates = oldCollisionDepth != collisionDepth;
+
+			if (!switchingStates)
+			{
+				if(collisionDepth == InteractableCollisionDepth.Action)
+				{
+					if(OnStayInActionZone != null) OnStayInActionZone.Invoke();
+				}
+			}
 
 			var newState = oldState;
 			if (collidingTool.IsFarFieldTool)
@@ -229,5 +238,24 @@ namespace YoyouOculusFramework
 
 			return true;
 		}
+
+		// private void SustainEventsOnDepth(InteractableCollisionDepth depth, InteractableTool collidingTool)
+		// {
+		// 	switch (depth)
+		// 	{
+		// 		case InteractableCollisionDepth.Action:
+		// 			OnActionZoneEvent(new ColliderZoneArgs(ActionCollider, Time.frameCount,
+		// 			  collidingTool, InteractionType.Stay));
+		// 			break;
+		// 		case InteractableCollisionDepth.Contact:
+		// 			OnContactZoneEvent(new ColliderZoneArgs(ContactCollider, Time.frameCount,
+		// 			  collidingTool, InteractionType.Stay));
+		// 			break;
+		// 		case InteractableCollisionDepth.Proximity:
+		// 			OnProximityZoneEvent(new ColliderZoneArgs(ProximityCollider, Time.frameCount,
+		// 			  collidingTool, InteractionType.Stay));
+		// 			break;
+		// 	}
+		// }
 	}
 }

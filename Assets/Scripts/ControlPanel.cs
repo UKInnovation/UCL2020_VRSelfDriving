@@ -61,7 +61,7 @@ public class ControlPanel : MonoBehaviour
         initialize_Button(ref musicPageButton, MusicPageButtonAnchor, delegate{toMusicPage();});
         initialize_Button(ref gamePageButton, GamePageButtonAnchor, delegate{toGamePage();});
         currentPage = startPage;
-        gamePageButton.OnEnterActionZone.Invoke();
+        toGamePage();
     }
 
     private void initialize_Canvas(ref Canvas element, RectTransform Anchor)
@@ -113,9 +113,11 @@ public class ControlPanel : MonoBehaviour
     }
     public void toGamePage()
     {
+
         closePage(currentPage);
         openPage(gamePage);
         currentPage = gamePage;
+
     }
     public enum Page
     {
