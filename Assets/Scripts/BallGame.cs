@@ -9,6 +9,7 @@ namespace OculusBallGame
     {
         private GameBall gameBall;
         private FailDetector failDetector;
+        private ScoreCollider scoreCounter;
 
         public event UnityAction GameOverEvent;
 
@@ -18,6 +19,7 @@ namespace OculusBallGame
         {
             gameBall = transform.GetComponentInChildren<GameBall>();
             failDetector = transform.GetComponentInChildren<FailDetector>();
+            scoreCounter = transform.GetComponentInChildren<ScoreCollider>();
 
             failDetector.GameOverEvent += this.OnGameOver;
             failDetector.GameOverEvent += gameBall.OnGameOver;
@@ -33,6 +35,7 @@ namespace OculusBallGame
             Destroy(gameBall);
             if(GameOverEvent != null)
             {
+                score = scoreCounter.score;
                 GameOverEvent.Invoke();
             }
         }

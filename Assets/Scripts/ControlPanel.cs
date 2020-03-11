@@ -119,8 +119,19 @@ public class ControlPanel : MonoBehaviour
         currentPage = gamePage;
 
     }
-    public enum Page
+    public void DisableButtons()
     {
-        StartPage = 0
+        startPageButton.gameObject.SetActive(false);
+        CameraPageButton.gameObject.SetActive(false);
+        musicPageButton.gameObject.SetActive(false);
+        gamePageButton.gameObject.SetActive(false);
+    }
+
+    public void EnableButtons()
+    {
+        startPageButton.gameObject.SetActive(true);
+        CameraPageButton.gameObject.SetActive(true);
+        musicPageButton.gameObject.SetActive(true);
+        gamePageButton.gameObject.SetActive(true);
     }
 }

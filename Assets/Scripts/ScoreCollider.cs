@@ -11,7 +11,7 @@ namespace OculusBallGame
         public event UnityAction getOneScore;
         [SerializeField]
         private Text text;
-        private int score = 0;
+        public int score = 0;
 
         /// <summary>
         /// OnTriggerEnter is called when the Collider other enters the trigger.
