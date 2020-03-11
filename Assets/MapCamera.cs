@@ -10,6 +10,6 @@ public class MapCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(_carT.position.x, 100, _carT.position.y);
+        transform.position = new Vector3(_carT.position.x, 100, _carT.position.z);
     }
 }
