@@ -10,7 +10,7 @@ public class ControlPanel : MonoBehaviour
     [SerializeField]
     private Canvas startPage;
     [SerializeField]
-    private Canvas cameraPage;
+    private Canvas navigationPage;
     [SerializeField]
     private Canvas musicPage;
     [SerializeField]    
@@ -18,14 +18,14 @@ public class ControlPanel : MonoBehaviour
     [SerializeField]
     private HandTrackingButton startPageButton;
     [SerializeField]
-    private HandTrackingButton CameraPageButton;
+    private HandTrackingButton NavigationPageButton;
     [SerializeField]
     private HandTrackingButton musicPageButton;
     [SerializeField]    
     private HandTrackingButton gamePageButton;
     private RectTransform PageAnchor;
     private RectTransform MainPageButtonAnchor;
-    private RectTransform CameraPageButtonAnchor;
+    private RectTransform NavigationPageButtonAnchor;
     private RectTransform MusicPageButtonAnchor;
     private RectTransform GamePageButtonAnchor;
     private Canvas currentPage;
@@ -38,7 +38,7 @@ public class ControlPanel : MonoBehaviour
     {
         PageAnchor = transform.Find("Page Anchor").GetComponent<RectTransform>();
         MainPageButtonAnchor = transform.Find("Main Page Button Anchor").GetComponent<RectTransform>();
-        CameraPageButtonAnchor = transform.Find("Camera Page Button Anchor").GetComponent<RectTransform>();
+        NavigationPageButtonAnchor = transform.Find("Camera Page Button Anchor").GetComponent<RectTransform>();
         MusicPageButtonAnchor = transform.Find("Music Page Button Anchor").GetComponent<RectTransform>();
         GamePageButtonAnchor = transform.Find("Game Page Button Anchor").GetComponent<RectTransform>();
     }
@@ -49,19 +49,19 @@ public class ControlPanel : MonoBehaviour
     void Start()
     {
         initialize_Canvas(ref startPage, PageAnchor);
-        initialize_Canvas(ref cameraPage, PageAnchor);
+        initialize_Canvas(ref navigationPage, PageAnchor);
         initialize_Canvas(ref musicPage, PageAnchor);
         initialize_Canvas(ref gamePage, PageAnchor);
         gamePage.gameObject.SetActive(false);
         musicPage.gameObject.SetActive(false);
-        cameraPage.gameObject.SetActive(false);
+        navigationPage.gameObject.SetActive(false);
 
         initialize_Button(ref startPageButton, MainPageButtonAnchor, delegate{toStartPage();});
-        initialize_Button(ref CameraPageButton, CameraPageButtonAnchor, delegate{toCameraPage();});
+        initialize_Button(ref NavigationPageButton, NavigationPageButtonAnchor, delegate{toNavigationPage();});
         initialize_Button(ref musicPageButton, MusicPageButtonAnchor, delegate{toMusicPage();});
         initialize_Button(ref gamePageButton, GamePageButtonAnchor, delegate{toGamePage();});
         currentPage = startPage;
-        toGamePage();
+        toNavigationPage();
     }
 
     private void initialize_Canvas(ref Canvas element, RectTransform Anchor)
@@ -99,11 +99,11 @@ public class ControlPanel : MonoBehaviour
         openPage(startPage);
         currentPage = startPage;
     }
-    public void toCameraPage()
+    public void toNavigationPage()
     {
         closePage(currentPage);
-        openPage(cameraPage);
-        currentPage = cameraPage;
+        openPage(navigationPage);
+        currentPage = navigationPage;
     }
     public void toMusicPage()
     {
@@ -122,7 +122,7 @@ public class ControlPanel : MonoBehaviour
     public void DisableButtons()
     {
         startPageButton.gameObject.SetActive(false);
-        CameraPageButton.gameObject.SetActive(false);
+        NavigationPageButton.gameObject.SetActive(false);
         musicPageButton.gameObject.SetActive(false);
         gamePageButton.gameObject.SetActive(false);
     }
@@ -130,7 +130,7 @@ public class ControlPanel : MonoBehaviour
     public void EnableButtons()
     {
         startPageButton.gameObject.SetActive(true);
-        CameraPageButton.gameObject.SetActive(true);
+        NavigationPageButton.gameObject.SetActive(true);
         musicPageButton.gameObject.SetActive(true);
         gamePageButton.gameObject.SetActive(true);
     }

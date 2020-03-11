@@ -118,15 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridPrefeb: {fileID: 2825659461458558885, guid: 7896d36e4644f6544b2fd032cb0d8b4c,
     type: 3}
-  MapCamera: {fileID: 250433097572593423, guid: 444f17244a6b6984dac41bd091de31b7,
-    type: 3}
-  prefeb: {fileID: 0}
-  vertices:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  prefeb: {fileID: 2024581954019344240, guid: bbc030463a6d1774185ad41b22836b79, type: 3}
   SizeIncreaseButton: {fileID: 8685209011552385906}
   SizeDecreaseButton: {fileID: 9039279782408430008}
   NavigationButton: {fileID: 6172577881564546768}

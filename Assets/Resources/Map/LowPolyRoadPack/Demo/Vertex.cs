@@ -34,5 +34,10 @@ namespace VehicleNavigation
         {
             Destroy(GetComponent<MeshRenderer>());  
         }
+
+        public void DeActivate()
+        {
+            
+        }
     }
 }

@@ -10,10 +10,13 @@ namespace VehicleNavigation
         private Rail currentRail;
         private float _nextWheelAngle;
         private float _nextTorque;
+        private float _nextBrakeTorqueRatio;
 
         public float NextWheelAngle {get{return _nextWheelAngle;}}
         public float NextTorque {get{return _nextTorque;}}
+        public float NextBrakeToruqeRatio {get{return _nextBrakeTorqueRatio;}}
         public Rail CurrentRail{get {return currentRail;}}
+        public bool ArrivedDestination = false;
 
         /// <summary>
         /// Awake is called when the script instance is being loaded.
@@ -30,6 +33,7 @@ namespace VehicleNavigation
         {
             UpdateWheelAngle();
             UpdateTorque();
+            UpdateBrakeTorque();
             // DequeDisabledRail();
         }
 
@@ -39,7 +43,6 @@ namespace VehicleNavigation
             {
                 rails.Enqueue(other.gameObject.GetComponent<Rail>());
                 currentRail = other.gameObject.GetComponent<Rail>();
-                Debug.Log(other.gameObject.name);
             }   
         }
 
@@ -93,6 +96,21 @@ namespace VehicleNavigation
             else
             {
                 _nextTorque = 0;
+            }
+        }
+
+        private void UpdateBrakeTorque()
+        {
+            if(currentRail == null)
+            {
+                if(_nextBrakeTorqueRatio < 1)
+                {
+                    _nextBrakeTorqueRatio += 0.1f;
+                }
+            }
+            else
+            {
+                _nextBrakeTorqueRatio = 0;
             }
         }
 

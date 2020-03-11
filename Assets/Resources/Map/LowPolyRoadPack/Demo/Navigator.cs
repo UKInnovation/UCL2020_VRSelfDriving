@@ -1,16 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace VehicleNavigation
 {
     public class Navigator : MonoBehaviour
     {
-        private Vertex[] vertexs;
-        Edge[] edges;
+        private Vertex[] _vertexs;
+        private Edge[] _edges;
+
+        public Vertex[] Vertices {get{return _vertexs;}}
+        public Edge[] Edges {get{return _edges;}}
 
         public Vertex StartPoint;
         public Vertex EndPoint;
+
+        public Text text;
+        private List<Vertex> currentActivedVertices = new List<Vertex>();
+        private List<Edge> currentActivedEdges = new List<Edge>();
         /// <summary>
         /// Start is called on the frame when a script is enabled just before
         /// any of the Update methods is called the first time.
@@ -21,26 +29,23 @@ namespace VehicleNavigation
         /// </summary>
         void Awake()
         {
-            vertexs = GetComponentsInChildren<Vertex>();
-            edges = GetComponentsInChildren<Edge>();
-            for(int i = 0; i < edges.Length; i++)
+            _vertexs = GetComponentsInChildren<Vertex>();
+            _edges = GetComponentsInChildren<Edge>();
+            for(int i = 0; i < _edges.Length; i++)
             {
-                edges[i].StartVertex.addEdge(edges[i]);
+                _edges[i].StartVertex.addEdge(_edges[i]);
+
+
             }
         }
 
-        void Start()
-        {
-            // getShortestRoute(StartPoint, EndPoint);    
-        }
-
-        public List<Vertex> getShortestRoute(Vertex StartPoint, Vertex Destnation) 
+        public void getShortestRoute(Vertex StartPoint, Vertex Destnation) 
         {
             Queue<Vertex> Vers = new Queue<Vertex>();
             List<Vertex> Visited_Vers = new List<Vertex>();
             Vers.Enqueue(StartPoint);
             Visited_Vers.Add(StartPoint);
-
+            // text.text = StartPoint.OutGoingEdge.Count.ToString();
             while(true)
             {
                 Vertex current_Ver = Vers.Dequeue();
@@ -61,16 +66,31 @@ namespace VehicleNavigation
                 }
             }
 
-            List<Vertex> shortestRoute = new List<Vertex>();
+            // List<Vertex> shortestRoute = new List<Vertex>();
             Vertex vertex = Destnation;
             while(vertex != null)
             {
                 vertex.setActive();
-                if(vertex.Prev_Edge != null) vertex.Prev_Edge.Activate();
+                currentActivedVertices.Add(vertex);
+                if(vertex.Prev_Edge != null) 
+                {
+                    vertex.Prev_Edge.Activate();
+                    currentActivedEdges.Add(vertex.Prev_Edge);
+                }
                 vertex = vertex.Prev_Ver;
             }
-            shortestRoute.Reverse();
-            return shortestRoute;
+        }
+
+        public void DeactivateActivedNavigatorElements()
+        {
+            foreach(Vertex vertex in currentActivedVertices)
+            {
+                vertex.DeActivate();
+            }
+            foreach(Edge edge in currentActivedEdges)
+            {
+                edge.DeActivate();
+            }
         }
     }
 }

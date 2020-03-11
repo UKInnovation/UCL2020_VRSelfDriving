@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using YoyouOculusFramework;
+using UnityEngine.UI;
+using System;
 
 namespace VehicleNavigation
 {
@@ -10,9 +12,11 @@ namespace VehicleNavigation
         [SerializeField]
         private HandTrackingButton _gridPrefeb;
         private Camera MapCamera;
+        private NavigatorController navigatorController;
         private List<HandTrackingButton> grids = new List<HandTrackingButton>();
 
         public GameObject prefeb;
+        public Text text;
         // [SerializeField]
         // private List<Transform> vertices;
 
@@ -24,21 +28,24 @@ namespace VehicleNavigation
         private HandTrackingButton NavigationButton;
         void Awake()
         {
-            initializeGrid();
             MapCamera = GameObject.Find("MapCamera").GetComponent<Camera>();
-            NavigationButton.OnEnterActionZone.AddListener(OnNavigationButtonPressed);
+            navigatorController = GameObject.Find("NavigationController").GetComponent<NavigatorController>();
+            NavigationButton.OnExitActionZone.AddListener(OnNavigationButtonPressed);
             SizeIncreaseButton.OnStayInActionZone.AddListener(OnIncreseButtonHold);
             SizeDecreaseButton.OnStayInActionZone.AddListener(OnDecreaseButtonHold);
+            text = GameObject.Find("Text (3)").GetComponent<Text>();
+            initializeGrid();
+            SetActivateGrids(false);
         }
 
         /// <summary>
-        /// Update is called every frame, if the MonoBehaviour is enabled.
+        /// Start is called on the frame when a script is enabled just before
+        /// any of the Update methods is called the first time.
         /// </summary>
-        // void Update()
+        // void Start()
         // {
-        //     OnDecreaseButtonHold();
+        //     NavigateTo(new Vector2(200, 200));
         // }
-
 
         private void initializeGrid()
         {
@@ -75,45 +82,32 @@ namespace VehicleNavigation
 
         private void NavigateTo(Vector2 relativePos)
         {
-            SetActivateGrids(false);
+            try{
+                SetActivateGrids(false);
+                RectTransform canvsRect = this.GetComponent<RectTransform>();
+                float canvas_high = canvsRect.sizeDelta.y;
+                float canvas_width = canvsRect.sizeDelta.x;
 
-            RectTransform canvsRect = this.GetComponent<RectTransform>();
-            float canvas_high = canvsRect.sizeDelta.y;
-            float canvas_width = canvsRect.sizeDelta.x;
+                float MapWorldScaleRatio = (MapCamera.orthographicSize * 2) / canvas_high;
+                Vector2 realWorldrelativePos = relativePos * MapWorldScaleRatio;
 
-            float MapWorldScaleRatio = (MapCamera.orthographicSize * 2) / canvas_high;
-            Vector2 realWorldrelativePos = relativePos * MapWorldScaleRatio;
+                Vector3 CameraHeadingDirection3d = MapCamera.transform.rotation.eulerAngles;
+                // Vector2 CameraHeadingDirection2d = new Vector2(CameraHeadingDirection3d.x, CameraHeadingDirection3d.z);
 
-            Vector3 CameraHeadingDirection3d = MapCamera.transform.rotation.eulerAngles;
-            // Vector2 CameraHeadingDirection2d = new Vector2(CameraHeadingDirection3d.x, CameraHeadingDirection3d.z);
+                // Debug.Log(relativePos);
+                float angle = Mathf.Atan(relativePos.x/relativePos.y);
+                if(relativePos.y < 0)
+                {
+                    angle = Mathf.PI + angle;
+                }
 
-            // Debug.Log(relativePos);
-            float angle = Mathf.Atan(relativePos.x/relativePos.y);
-            if(relativePos.y < 0)
-            {
-                angle = Mathf.PI + angle;
+                angle = angle + (CameraHeadingDirection3d.y * Mathf.PI)/180;
+                Vector3 realWorldPos = transform.position + (new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)) * realWorldrelativePos.magnitude);
+                navigatorController.NavigateTo(realWorldPos);
+                text.text = "here";
+            }catch(Exception e){
+                text.text = e.StackTrace;
             }
-
-            angle = angle + (CameraHeadingDirection3d.y * Mathf.PI)/180;
-            Vector3 realWorldPos = transform.position + (new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)) * realWorldrelativePos.magnitude);
-            
-
-            // float shortestDistance = float.MaxValue;
-            // Transform closestVertex = null;
-            // foreach(Transform vertex in vertices)
-            // {
-            //     float Distance = Vector3.Distance(vertex.position, realWorldPos);
-            //     if(Distance < shortestDistance)
-            //     {
-            //         Debug.Log(vertex.gameObject.name);
-            //         shortestDistance = Distance;
-            //         closestVertex = vertex;
-            //     }
-            // }
-
-            // if(closestVertex != null){
-            //     Destroy(closestVertex.gameObject);
-            // }
         }
 
         private void OnNavigationButtonPressed()
@@ -127,14 +121,14 @@ namespace VehicleNavigation
             {
                 foreach(HandTrackingButton grid in grids)
                 {
-                    grid.enabled = true;
+                    grid.gameObject.SetActive(true);
                 }
             }
             else
             {
                 foreach(HandTrackingButton grid in grids)
                 {
-                    grid.enabled = false;
+                    grid.gameObject.SetActive(false);
                 }
             }
         }
@@ -142,7 +136,6 @@ namespace VehicleNavigation
         private void ChangeMapSize(float amount)
         {
             MapCamera.orthographicSize += amount;
-            Debug.Log("here");
             if(MapCamera.orthographicSize < 5){
                 MapCamera.orthographicSize = 5;
             }
