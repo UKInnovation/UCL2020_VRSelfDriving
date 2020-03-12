@@ -54,7 +54,16 @@ namespace VehicleNavigation
         {
             if(other.gameObject.GetComponent<Rail>() != null)
             {
-                rails.Dequeue();
+                Rail rail = rails.Dequeue();
+                if(rail.gameObject.GetComponent<Edge>() != null)
+                {
+                    rail.gameObject.GetComponent<Edge>().DeActivate();    
+                }
+                else
+                {
+                    rail.DeActivate();
+                }
+
                 if(rails.Count == 0)
                 {
                     currentRail = null;
