@@ -14,7 +14,7 @@ namespace VehicleNavigation
         private bool _isActive;
         private float _railCompletePercentage;
         private float _distance;
-        private Image _routeDisplayer;
+        private SpriteRenderer _routeDisplayer;
 
         public BoxCollider Railway{get{return _railway;}}
         public Vector3 DirectionAngle {get{return _directionAngle;}}
@@ -34,11 +34,12 @@ namespace VehicleNavigation
             this._directionVector = this.gameObject.transform.forward;
             this._distance =  transform.localScale.z;
             this._railway = this.gameObject.GetComponent<BoxCollider>();
-            _routeDisplayer = this.GetComponentInChildren<Image>();
+            _routeDisplayer = this.GetComponentInChildren<SpriteRenderer>();
 
             _railway.isTrigger = true;
             _railway.enabled = true;
             _isActive = false;
+            _routeDisplayer.enabled = false;
             this.GetComponent<MeshRenderer>().enabled = false;
             // DeActivate();
         }
@@ -66,7 +67,8 @@ namespace VehicleNavigation
         /// </summary>
         void Update()
         {
-            _routeDisplayer.fillAmount = (1 - _railCompletePercentage);
+            _routeDisplayer.size = new Vector2((1 - _railCompletePercentage), 1);
+            _routeDisplayer.transform.localPosition = new Vector3(_routeDisplayer.transform.localPosition.x, _routeDisplayer.transform.localPosition.y, 0.5f - ((1 - _railCompletePercentage) / 2));
         }
     }
 }

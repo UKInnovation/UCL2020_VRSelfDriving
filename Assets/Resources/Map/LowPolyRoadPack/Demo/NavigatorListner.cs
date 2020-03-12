@@ -11,12 +11,14 @@ namespace VehicleNavigation
         private float _nextWheelAngle;
         private float _nextTorque;
         private float _nextBrakeTorqueRatio;
+        private bool _adjustPositionToRoadCenter = false;
 
         public float NextWheelAngle {get{return _nextWheelAngle;}}
         public float NextTorque {get{return _nextTorque;}}
         public float NextBrakeToruqeRatio {get{return _nextBrakeTorqueRatio;}}
         public Rail CurrentRail{get {return currentRail;}}
         public bool ArrivedDestination = false;
+        public Rigidbody carR;
 
         /// <summary>
         /// Awake is called when the script instance is being loaded.
@@ -35,6 +37,7 @@ namespace VehicleNavigation
             UpdateTorque();
             UpdateBrakeTorque();
             UpdateRailCompletePercentage();
+            Debug.Log(_nextBrakeTorqueRatio);
             // DequeDisabledRail();
         }
 
@@ -65,15 +68,40 @@ namespace VehicleNavigation
             {
                 if(currentRail.isActive)
                 {
-                    _nextWheelAngle = currentRail.DirectionAngle.y - transform.rotation.eulerAngles.y;
-                    if(_nextWheelAngle > 180)
+                    if(_adjustPositionToRoadCenter)
                     {
-                        _nextWheelAngle -= 360;
+                        if(Vector3.Project(transform.position - currentRail.transform.position, currentRail.transform.right).magnitude < 0.5)
+                        {
+                            _adjustPositionToRoadCenter = false;
+                            return;
+                        }
+                        if(Vector3.Dot(transform.position - currentRail.transform.position, currentRail.transform.right) > 0)
+                        {
+                            _nextWheelAngle = -10;
+                        }
+                        else
+                        {
+                            _nextWheelAngle = 10;
+                        }
+                        return;
                     }
-                    else if(_nextWheelAngle < -180)
+
+                    float angleDiff;
+                    angleDiff = currentRail.DirectionAngle.y - transform.rotation.eulerAngles.y;
+                    if(angleDiff > 180)
                     {
-                        _nextWheelAngle += 360;
+                        angleDiff -= 360;
                     }
+                    else if(angleDiff < -180)
+                    {
+                        angleDiff += 360;
+                    }
+                    _nextWheelAngle = angleDiff;
+                    if(angleDiff < 0.1)
+                    {
+                        _adjustPositionToRoadCenter = true;
+                    }
+                    
                 }
             }
             else
@@ -88,7 +116,14 @@ namespace VehicleNavigation
             {
                 if(currentRail.isActive)
                 {
-                    _nextTorque = 1;
+                    if(carR.velocity.magnitude < 3)
+                    {
+                        _nextTorque = 1;
+                    }
+                    else
+                    {
+                        _nextTorque = 0;
+                    }
                 }
                 else{
                     _nextTorque = 0;
@@ -102,7 +137,7 @@ namespace VehicleNavigation
 
         private void UpdateBrakeTorque()
         {
-            if(currentRail == null)
+            if(currentRail == null || !currentRail.isActive)
             {
                 if(_nextBrakeTorqueRatio < 1)
                 {

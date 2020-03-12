@@ -63,7 +63,7 @@ public class WheelDrive : MonoBehaviour
 
 		// float angle = maxAngle * Input.GetAxis("Horizontal");
 		// float torque = maxTorque * Input.GetAxis("Vertical");
-		float angle = navigator.NextWheelAngle * 0.3f;
+		float angle = navigator.NextWheelAngle;
 		float torque = navigator.NextTorque * maxTorque;
 
 		float handBrake = navigator.NextBrakeToruqeRatio * brakeTorque;
