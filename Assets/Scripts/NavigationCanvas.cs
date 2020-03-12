@@ -70,7 +70,7 @@ namespace VehicleNavigation
                     HandTrackingButton grid = Instantiate(_gridPrefeb, transform.localPosition, transform.localRotation);
                     grids.Add(grid);
                     grid.GetComponent<RectTransform>().localScale = canvsRect.localScale;
-                    grid.transform.parent = this.transform;
+                    grid.transform.SetParent(this.transform);
                     grid.GetComponent<RectTransform>().localPosition = currentGridPos;
                     grid.OnEnterActionZone.AddListener(delegate{NavigateTo(currentGridPos);});
                     currentGridPos += GoRight;

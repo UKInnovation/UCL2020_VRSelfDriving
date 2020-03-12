@@ -34,6 +34,7 @@ namespace VehicleNavigation
             UpdateWheelAngle();
             UpdateTorque();
             UpdateBrakeTorque();
+            UpdateRailCompletePercentage();
             // DequeDisabledRail();
         }
 
@@ -64,7 +65,7 @@ namespace VehicleNavigation
             {
                 if(currentRail.isActive)
                 {
-                    _nextWheelAngle = currentRail.Direction.y - transform.rotation.eulerAngles.y;
+                    _nextWheelAngle = currentRail.DirectionAngle.y - transform.rotation.eulerAngles.y;
                     if(_nextWheelAngle > 180)
                     {
                         _nextWheelAngle -= 360;
@@ -111,6 +112,26 @@ namespace VehicleNavigation
             else
             {
                 _nextBrakeTorqueRatio = 0;
+            }
+        }
+
+        private void UpdateRailCompletePercentage()
+        {
+            if(currentRail != null)
+            {
+                Vector3 RailCentertoCarV = transform.position - currentRail.transform.position;
+                float disFromRailCenterToCar;
+                if(Vector3.Dot(RailCentertoCarV, currentRail.DirectionVector) > 0)
+                {
+                    disFromRailCenterToCar = Vector3.Magnitude(Vector3.Project(RailCentertoCarV, currentRail.DirectionVector));
+                }
+                else
+                {
+                    disFromRailCenterToCar = -Vector3.Magnitude(Vector3.Project(RailCentertoCarV, currentRail.DirectionVector));
+                }
+
+                float disFromCarToRailStart = disFromRailCenterToCar + currentRail.Distance/2;
+                currentRail.RailCompletePercentage = disFromCarToRailStart / currentRail.Distance;
             }
         }
 

@@ -13,7 +13,6 @@ namespace VehicleNavigation
         private Vertex _endVertex;
         private float _distance;
         private Rail _rail;
-        private Canvas _routeDisplayer;
         private List<CheckPoint> _checkPoints;
 
         public Vector3 Direction{get{return _direction;}}
@@ -29,24 +28,20 @@ namespace VehicleNavigation
         void Awake()
         {
             _distance = transform.localScale.z;
+            _direction = transform.forward;
             _rail = this.GetComponent<Rail>();
-            _routeDisplayer = this.GetComponentInChildren<Canvas>(); 
             _checkPoints = new List<CheckPoint>(this.GetComponentsInChildren<CheckPoint>());
-
-            _routeDisplayer.enabled = false;
         }
 
         public void Activate()
         {
             _rail.Activate();
-            _routeDisplayer.enabled = true;
             isActive = true;
         }
 
         public void DeActivate()
         {
             _rail.DeActivate();
-            _routeDisplayer.enabled = true;
             isActive = false;
         }
     }   

@@ -35,7 +35,6 @@ namespace VehicleNavigation
             {
                 _edges[i].StartVertex.addEdge(_edges[i]);
 
-
             }
         }
 
