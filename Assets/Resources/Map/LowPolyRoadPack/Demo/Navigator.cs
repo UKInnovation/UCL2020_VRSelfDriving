@@ -40,18 +40,33 @@ namespace VehicleNavigation
 
         public void getShortestRoute(Vertex StartPoint, Vertex Destnation) 
         {
-            Queue<Vertex> Vers = new Queue<Vertex>();
+            List<Vertex> Vers = new List<Vertex>();
             List<Vertex> Visited_Vers = new List<Vertex>();
-            Vers.Enqueue(StartPoint);
+            Dictionary<Vertex, float> Hash = new Dictionary<Vertex, float>();
+
+            Vers.Add(StartPoint);
             Visited_Vers.Add(StartPoint);
+            Hash[StartPoint] = 0;
             // text.text = StartPoint.OutGoingEdge.Count.ToString();
             while(true)
             {
-                Vertex current_Ver = Vers.Dequeue();
+                Vertex current_Ver = null;
+                float shortestDistance = int.MaxValue;
+                foreach(Vertex ver in Vers)
+                {
+                    if(Hash[ver] < shortestDistance)
+                    {
+                        shortestDistance = Hash[ver];
+                        current_Ver = ver;
+                    }
+                }
+                Vers.Remove(current_Ver);
+
                 if(current_Ver == Destnation)
                 {
                     break;
                 }
+
                 for(int i = 0; i < current_Ver.OutGoingEdge.Count; i++)
                 {
                     Vertex reachableVertex = current_Ver.OutGoingEdge[i].EndVertex;
@@ -59,7 +74,8 @@ namespace VehicleNavigation
                     {
                         reachableVertex.Prev_Ver = current_Ver;
                         reachableVertex.Prev_Edge = current_Ver.OutGoingEdge[i];
-                        Vers.Enqueue(reachableVertex);
+                        Hash[reachableVertex] = Hash[current_Ver] + current_Ver.OutGoingEdge[i].Distance;
+                        Vers.Add(reachableVertex);
                         Visited_Vers.Add(reachableVertex);
                     }
                 }

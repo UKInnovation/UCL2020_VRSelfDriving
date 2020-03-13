@@ -56,7 +56,7 @@ namespace YoyouOculusFramework
             CalculateAveragePinch();
             UpdateCurrentGesture();
             InvokeGestureEvents();
-            text.text = HasGesture[(int)Gesture.LHFaceUp].ToString();
+            // text.text = HasGesture[(int)Gesture.LHFaceUp].ToString();
         }
 
         private void UpdateHandsStates()
