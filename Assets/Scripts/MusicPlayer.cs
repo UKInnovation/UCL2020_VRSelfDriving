@@ -27,29 +27,29 @@ namespace YoyouOculusFramework
             player = transform.GetComponent<AudioSource>();   
         }
         void Update() {
-            text.text = progressionController.localPosition.x.ToString() + " " + progressionController.localPosition.y.ToString() + " " + progressionController.localPosition.z.ToString();
             if(player.time >= songs[songIndex].clip.length - 0.1)
             {
                 nextSong();
             }
             if(!isControllerGrabbed){
                 progressionBar.fillAmount = player.time / songs[songIndex].clip.length;
-                progressionController.localPosition = new Vector3(-200 + progressionBar.fillAmount * 400, -66, 0);   
+                progressionController.localPosition = new Vector3(-300 + progressionBar.fillAmount * 600, -130, 0);   
             }else{
-                progressionBar.fillAmount = (progressionController.localPosition.x + 200) / 400;
+                progressionBar.fillAmount = (progressionController.localPosition.x + 300) / 600;
             }
         }
         void Start()
         {
             player.clip = songs[0].clip;
             songCoverImage.texture = songs[0].coverImage;
-            play();
+            pause();
         }
         public void nextSong()
         {
             songIndex++;
             songIndex = songIndex % songs.Length;
             player.clip = songs[songIndex].clip;
+            player.time = 0;
             songCoverImage.texture = songs[songIndex].coverImage;
             play();
         }
@@ -58,6 +58,7 @@ namespace YoyouOculusFramework
             songIndex--;
             if(songIndex < 0) songIndex += songs.Length;
             player.clip = songs[songIndex].clip;
+            player.time = 0;
             songCoverImage.texture = songs[songIndex].coverImage;
             play();
         }
@@ -79,9 +80,39 @@ namespace YoyouOculusFramework
 
         public void OnControllerReleased()
         {
-            player.time = songs[songIndex].clip.length * ((progressionController.localPosition.x + 200) / 400);
+            player.time = songs[songIndex].clip.length * ((progressionController.localPosition.x + 300) / 600);
             isControllerGrabbed = false;
             play();
+        }
+
+        public void OnPlayButtonClicked()
+        {
+            if(player.isPlaying)
+            {
+                pause();
+            }
+            else
+            {
+                play();
+            }
+        }
+
+        public void DisableMusicCanvas()
+        {
+            this.GetComponent<Canvas>().enabled = false;
+            playButton.gameObject.SetActive(false);
+            transform.Find("Prev Song Button").gameObject.SetActive(false);
+            transform.Find("Next Song Button").gameObject.SetActive(false);
+            transform.Find("Progress Controller").gameObject.SetActive(false);
+        }
+
+        public void EnableMusicCanvas()
+        {
+            this.GetComponent<Canvas>().enabled = true;
+            playButton.gameObject.SetActive(true);
+            transform.Find("Prev Song Button").gameObject.SetActive(true);
+            transform.Find("Next Song Button").gameObject.SetActive(true);
+            transform.Find("Progress Controller").gameObject.SetActive(true);
         }
     }
 }

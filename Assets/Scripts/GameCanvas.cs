@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using OculusBallGame;
+using YoyouOculusFramework;
 public class GameCanvas : MonoBehaviour
 {
     public BallGame ballGamePrefab;

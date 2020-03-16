@@ -23,7 +23,7 @@ namespace YoyouOculusFramework
         void Start()
         {
             faceUpGestureListner = FaceUpGestureController.INSTANCE;
-            TemperatureT.text = ((int)Temperature).ToString();
+            TemperatureT.text = string.Format("{0}\u00B0C", (int)Temperature);
         }
         protected override void OnHandRiseORFall(float RHamount, float LHamount)
         {
@@ -34,7 +34,7 @@ namespace YoyouOculusFramework
             else if(Temperature < 16){
                 Temperature = 16;
             }
-            TemperatureT.text = ((int)Temperature).ToString();
+            TemperatureT.text = string.Format("{0}\u00B0C", (int)Temperature);
         }
 
         public override void AttachToController()

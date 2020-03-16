@@ -37,7 +37,6 @@ namespace VehicleNavigation
             UpdateTorque();
             UpdateBrakeTorque();
             UpdateRailCompletePercentage();
-            Debug.Log(_nextBrakeTorqueRatio);
             // DequeDisabledRail();
         }
 

@@ -251,17 +251,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262a01a0f3fd38a479bd3643a5fe6afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPage: {fileID: 1555956299546258765, guid: 7812fb39ba570cf4c859d6782b03dd0f,
+  startPage: {fileID: 7859875451433097346, guid: 5db56055c39ca384aa16e3c570f323d3,
     type: 3}
-  cameraPage: {fileID: 36161852783303466, guid: ca1b4131bbb60224e97ea736a339ad5c,
+  navigationPage: {fileID: 36161852783303466, guid: ca1b4131bbb60224e97ea736a339ad5c,
     type: 3}
-  musicPage: {fileID: 8967526686329347877, guid: f1fa14aa5dc55564882c1667d516074a,
+  musicPage: {fileID: 6344146348947992070, guid: 2f4cdb610daacba4eb986ed2017c921b,
     type: 3}
-  gamePage: {fileID: 2113481939130264645, guid: 3e2d170ce1a71a04383193daaac5e4d0,
+  gamePage: {fileID: 1853353999113409346, guid: a5e0dc51eed7ce643852c6b90b012166,
     type: 3}
   startPageButton: {fileID: 2214977386954227581, guid: f7144eafd89380b44b7bc79893e099c5,
     type: 3}
-  CameraPageButton: {fileID: 6626420442488769669, guid: 1068570f2b0644a42b8964105177c9be,
+  NavigationPageButton: {fileID: 6626420442488769669, guid: 1068570f2b0644a42b8964105177c9be,
     type: 3}
   musicPageButton: {fileID: 7858255249098466979, guid: e1b541e28658dc54397cbc467468cedb,
     type: 3}

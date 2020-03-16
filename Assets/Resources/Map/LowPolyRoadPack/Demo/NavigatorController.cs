@@ -63,6 +63,7 @@ namespace VehicleNavigation
             }
             if(currentEdgeStartVertex != vertex)
             {
+                Debug.Log(vertex.gameObject.name);
                 navigator.getShortestRoute(currentEdgeStartVertex, vertex);
             }
         }

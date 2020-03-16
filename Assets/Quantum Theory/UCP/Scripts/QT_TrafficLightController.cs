@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class QT_TrafficLightController : MonoBehaviour {
 	public List<QT_TrafficLight> GreenLights,RedLights,BlinkingLights;
 	public float StayOnGreenTime=10.0f;
-	public float StayOnYellowTime=4.0f;
+	public float StayOnYellowTime=0.0f;
 	public float RedToGreenTime=4.0f;
 	public float BlinkTime=2.0f;
 	public byte nothin;
@@ -27,16 +27,28 @@ public class QT_TrafficLightController : MonoBehaviour {
 		
 		if(greenindices.Count>0 && redindices.Count>0)
 			StartCoroutine(DoLightLoop());
-		if(yellowindices.Count>0)
-			StartCoroutine(DoBlinkLoop());
-	
 	}	
     
 	private IEnumerator DoLightLoop()
 	{
-		yield return new WaitForSeconds(GlobalTimeOffset);
+        while(true)
+        {
+			yield return new WaitForSeconds(StayOnGreenTime);
+
+            foreach (int i in greenindices)
+            {
+				GreenLights[i].SetLightValue(0, 0, 2);
+                if(UseDynamicLights)
+                {
+					GreenLights[i].Lights[0].SetActive(true);
+					GreenLights[i].Lights[1].SetActive(false);
+					GreenLights[i].Lights[2].SetActive(false);
+                }
+            }
+		}
 		
-		while(true)
+		/*
+         * while(true)
 		{
 			yield return new WaitForSeconds(StayOnGreenTime);
 			
@@ -110,6 +122,7 @@ public class QT_TrafficLightController : MonoBehaviour {
 			
 			swapSets = !swapSets;
 		}
+        */
 	}
 	
 	private IEnumerator DoBlinkLoop()
@@ -165,44 +178,18 @@ public class QT_TrafficLightController : MonoBehaviour {
 	
 	void SetupInitialBulbs()
 	{
-		if(greenindices.Count>0) //if green, disable yellow and red.
+		if (greenindices.Count > 0) //if green, disable yellow and red.
 		{
 			foreach (int i in greenindices)
 			{
-                GreenLights[i].InitializeTrafficLight();
-                GreenLights[i].SetLightValue(0, 0, 2);
-				foreach(GameObject l in GreenLights[i].Lights)
+				GreenLights[i].InitializeTrafficLight();
+				GreenLights[i].SetLightValue(0, 0, 2);
+				foreach (GameObject l in GreenLights[i].Lights)
 					l.SetActive(false);
-				if(UseDynamicLights)
-					GreenLights[i].Lights[0].SetActive(true);	
-			}			
-		}
-		if(redindices.Count>0)
-		{
-			foreach (int i in redindices)
-			{
-                RedLights[i].InitializeTrafficLight();
-                RedLights[i].SetLightValue(2, 0, 0);			
-				foreach(GameObject l in RedLights[i].Lights)
-					l.SetActive(false);
-				if(UseDynamicLights)
-					RedLights[i].Lights[2].SetActive(true);
-				
+				if (UseDynamicLights)
+					GreenLights[i].Lights[0].SetActive(true);
 			}
 		}
-		if(yellowindices.Count>0)
-		{
-			foreach(int i in yellowindices)
-			{
-                BlinkingLights[i].InitializeTrafficLight();
-                BlinkingLights[i].SetLightValue(0, 2, 0);		
-				foreach(GameObject l in BlinkingLights[i].Lights)
-					l.SetActive(false);
-			}
-		}
-		
-		
-		
 	}
 	
 	

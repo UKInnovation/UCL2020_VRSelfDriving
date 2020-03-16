@@ -11,7 +11,7 @@ namespace YoyouOculusFramework
         private Sprite playIcon;
         [SerializeField]
         private Sprite pauseIcon;
-
+        
         public void toPlayIcon()
         {
             transform.GetComponent<Image>().sprite = playIcon;

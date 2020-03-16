@@ -5,13 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/sda.unity
-    guid: c453973af0b9245b5b6c332410e9ef4a
   - enabled: 1
-    path: Assets/Scenes/LoadingScene.unity
-    guid: b22122476de04d54881a12416d27726d
-  - enabled: 0
     path: Assets/Scenes/Car Simulation Scene.unity
     guid: c5564a91dc1e2764eaa7472d20a98257
   m_configObjects: {}

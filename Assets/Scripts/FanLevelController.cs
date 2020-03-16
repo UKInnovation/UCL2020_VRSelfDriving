@@ -8,7 +8,7 @@ namespace YoyouOculusFramework
 {
     public class FanLevelController : HandRiseUpListner
     {
-        private float FanLevel = 10f;
+        private float FanLevel = 100f;
         [SerializeField]
         private Text FanLevelT;
         private float timer;
@@ -23,18 +23,18 @@ namespace YoyouOculusFramework
         void Start()
         {
             faceUpGestureListner = FaceUpGestureController.INSTANCE;
-            FanLevelT.text = ((int)FanLevel).ToString();
+            FanLevelT.text = ((int)FanLevel).ToString() + "%";
         }
         protected override void OnHandRiseORFall(float RHamount, float LHamount)
         {
             FanLevel += RHamount * 20 + LHamount * 20;
-            if(FanLevel > 20){
+            if(FanLevel > 100){
                 FanLevel = 20;
             }
             else if(FanLevel < 0){
                 FanLevel = 0;
             }
-            FanLevelT.text = ((int)FanLevel).ToString();
+            FanLevelT.text = ((int)FanLevel).ToString() + "%";
         }
 
         public override void AttachToController()
