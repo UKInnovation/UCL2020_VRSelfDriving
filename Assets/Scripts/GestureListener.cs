@@ -56,7 +56,7 @@ namespace YoyouOculusFramework
             CalculateAveragePinch();
             UpdateCurrentGesture();
             InvokeGestureEvents();
-            // text.text = HasGesture[(int)Gesture.LHFaceUp].ToString();
+            // text.text = RightHandT.rotation.eulerAngles.x.ToString() + " " + RightHandT.rotation.eulerAngles.y.ToString() + " " + RightHandT.rotation.eulerAngles.z.ToString();
         }
 
         private void UpdateHandsStates()
@@ -127,12 +127,18 @@ namespace YoyouOculusFramework
         private void InvokeSlapRight(){
             if (SlapRight != null){
                 HandState[] rightHandStates = RightHandStates.ToArray();
-                if (AveragePinchStrengthRight[1] == 0){
-                    float angleDiff = rightHandStates[rightHandStates.Length - 1].rotation.eulerAngles.y - rightHandStates[0].rotation.eulerAngles.y;
-                    // text.text = angleDiff.ToString();
-                    if (angleDiff > 180){
-                        angleDiff = 360 - angleDiff;
-                        if(angleDiff > 100){
+                if (AveragePinchStrengthRight[1] < 0.2){
+                    Vector3 initialHandRotation = rightHandStates[0].rotation.eulerAngles;
+                    Vector3 endHandRotation = rightHandStates[rightHandStates.Length - 1].rotation.eulerAngles;
+                    Vector3 angleDiff = endHandRotation - initialHandRotation;
+                    if((initialHandRotation.x > 0 && initialHandRotation.x < 100)
+                    && (initialHandRotation.y > 0 && initialHandRotation.y < 100)
+                    && (initialHandRotation.z > 260 && initialHandRotation.z < 320))
+                    {
+                        text.text = initialHandRotation.x.ToString() + " " + initialHandRotation.y.ToString() + " " + initialHandRotation.z.ToString();
+                        if(angleDiff.x < 30 && endHandRotation.y > 270 && angleDiff.z > 50)
+                        {
+                            text.text = angleDiff.x.ToString() + " " + angleDiff.z.ToString();
                             SlapRightG.Invoke();
                             _hasGesture[(int)Gesture.RHSlapRight] = true;
                         }
@@ -143,9 +149,19 @@ namespace YoyouOculusFramework
 
         private void InvokeOKgesture(){
             HandState[] rightHandStates = RightHandStates.ToArray();
-            if (AveragePinchStrengthRight[1] == 1 && AveragePinchStrengthRight[2] == 0){
-                OKgesture.Invoke();
-                _hasGesture[(int)Gesture.RHOK] = true;
+            Vector3 AverageHandRogation = new Vector3();
+            for(int i = 0; i < rightHandStates.Length; i += 5)
+            {
+                AverageHandRogation += rightHandStates[i].rotation.eulerAngles;
+            }
+            AverageHandRogation = AverageHandRogation / (QueueMaxLength/5);
+            // text.text = AverageHandRogation.x.ToString() + " " + AverageHandRogation.y.ToString() + " " + AverageHandRogation.z.ToString();
+            if (AveragePinchStrengthRight[1] == 1 && AveragePinchStrengthRight[2] == 0 && AveragePinchStrengthRight[3] == 0 && AveragePinchStrengthRight[4] == 0){
+                if(AverageHandRogation.x > 340 && AverageHandRogation.y > 0 && AverageHandRogation.y < 40 && AverageHandRogation.z > 240 && AverageHandRogation.z < 280)
+                {
+                    OKgesture.Invoke();
+                    _hasGesture[(int)Gesture.RHOK] = true;
+                }
             }
         }
 
@@ -262,7 +278,7 @@ namespace YoyouOculusFramework
 
             public void Invoke(){
             long TimeElapsed = DateTimeOffset.Now.ToUnixTimeMilliseconds() - timer;
-            if (TimeElapsed > 1000){
+            if (TimeElapsed > 1200){
                 Event.Invoke();
                 timer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             }

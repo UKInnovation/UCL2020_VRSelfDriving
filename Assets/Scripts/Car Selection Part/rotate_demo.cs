@@ -42,7 +42,7 @@ public class rotate_demo : MonoBehaviour
 
     public void nextCar()
     {
-        currentRotatorAngle += 180f;
+        currentRotatorAngle += 179f;
         currentCarIndex++;
         currentCarIndex = currentCarIndex % 2;
         createDiscription();
