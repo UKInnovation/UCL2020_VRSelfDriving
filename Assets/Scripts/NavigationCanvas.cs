@@ -17,6 +17,8 @@ namespace VehicleNavigation
 
         public GameObject prefeb;
         public Text text;
+
+        public Transform carT;
         // [SerializeField]
         // private List<Transform> vertices;
 
@@ -34,6 +36,7 @@ namespace VehicleNavigation
             SizeIncreaseButton.OnStayInActionZone.AddListener(OnIncreseButtonHold);
             SizeDecreaseButton.OnStayInActionZone.AddListener(OnDecreaseButtonHold);
             text = GameObject.Find("Text (3)").GetComponent<Text>();
+            carT = GameObject.FindGameObjectWithTag("car").transform;
             initializeGrid();
             SetActivateGrids(false);
         }
@@ -73,6 +76,7 @@ namespace VehicleNavigation
                     grid.transform.SetParent(this.transform);
                     grid.GetComponent<RectTransform>().localPosition = currentGridPos;
                     grid.OnEnterActionZone.AddListener(delegate{NavigateTo(currentGridPos);});
+                    // NavigateTo(currentGridPos);
                     currentGridPos += GoRight;
                 }
                 currentGridPos.x = startPosition.x;
@@ -82,32 +86,30 @@ namespace VehicleNavigation
 
         private void NavigateTo(Vector2 relativePos)
         {
-            try{
-                SetActivateGrids(false);
-                RectTransform canvsRect = this.GetComponent<RectTransform>();
-                float canvas_high = canvsRect.sizeDelta.y;
-                float canvas_width = canvsRect.sizeDelta.x;
+            SetActivateGrids(false);
+            RectTransform canvsRect = this.GetComponent<RectTransform>();
+            float canvas_high = canvsRect.sizeDelta.y;
+            float canvas_width = canvsRect.sizeDelta.x;
 
-                float MapWorldScaleRatio = (MapCamera.orthographicSize * 2) / canvas_high;
-                Vector2 realWorldrelativePos = relativePos * MapWorldScaleRatio;
+            float MapWorldScaleRatio = (MapCamera.orthographicSize * 2) / canvas_high;
+            Vector2 realWorldrelativePos = relativePos * MapWorldScaleRatio;
 
-                Vector3 CameraHeadingDirection3d = MapCamera.transform.rotation.eulerAngles;
-                // Vector2 CameraHeadingDirection2d = new Vector2(CameraHeadingDirection3d.x, CameraHeadingDirection3d.z);
+            Vector3 CameraHeadingDirection3d = MapCamera.transform.rotation.eulerAngles;
+            // Vector2 CameraHeadingDirection2d = new Vector2(CameraHeadingDirection3d.x, CameraHeadingDirection3d.z);
 
-                // Debug.Log(relativePos);
-                float angle = Mathf.Atan(relativePos.x/relativePos.y);
-                if(relativePos.y < 0)
-                {
-                    angle = Mathf.PI + angle;
-                }
-
-                angle = angle + (CameraHeadingDirection3d.y * Mathf.PI)/180;
-                Vector3 realWorldPos = transform.position + (new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)) * realWorldrelativePos.magnitude);
-                navigatorController.NavigateTo(realWorldPos);
-                text.text = "here";
-            }catch(Exception e){
-                text.text = e.StackTrace;
+            // Debug.Log(relativePos);
+            float angle = Mathf.Atan(relativePos.x/relativePos.y);
+            if(relativePos.y < 0)
+            {
+                angle = Mathf.PI + angle;
             }
+
+            angle = angle + (CameraHeadingDirection3d.y * Mathf.PI)/180;
+            Debug.Log(carT.position);
+            Vector3 realWorldPos = carT.position + (new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)) * realWorldrelativePos.magnitude);
+            navigatorController.NavigateTo(realWorldPos);
+            // GameObject cude = Instantiate(prefeb, realWorldPos, new Quaternion());
+            // cude.transform.localScale = new Vector3(2,2,2);
         }
 
         private void OnNavigationButtonPressed()

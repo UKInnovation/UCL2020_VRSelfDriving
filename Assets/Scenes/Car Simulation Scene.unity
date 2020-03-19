@@ -2052,12 +2052,12 @@ PrefabInstance:
     - target: {fileID: 2643976039452886265, guid: 402c31b8c3aaffb4187cda8992f3fe4a,
         type: 3}
       propertyPath: m_SuspensionSpring.spring
-      value: 36871.438
+      value: 36871.43
       objectReference: {fileID: 0}
     - target: {fileID: 2643976039452886265, guid: 402c31b8c3aaffb4187cda8992f3fe4a,
         type: 3}
       propertyPath: m_SuspensionSpring.damper
-      value: 5899.4297
+      value: 5899.429
       objectReference: {fileID: 0}
     - target: {fileID: 2643976040488310579, guid: 402c31b8c3aaffb4187cda8992f3fe4a,
         type: 3}
@@ -2072,17 +2072,22 @@ PrefabInstance:
     - target: {fileID: 2643976041036865129, guid: 402c31b8c3aaffb4187cda8992f3fe4a,
         type: 3}
       propertyPath: m_SuspensionSpring.spring
-      value: 38109.38
+      value: 38109.387
       objectReference: {fileID: 0}
     - target: {fileID: 2643976041036865129, guid: 402c31b8c3aaffb4187cda8992f3fe4a,
         type: 3}
       propertyPath: m_SuspensionSpring.damper
-      value: 6097.501
+      value: 6097.5015
       objectReference: {fileID: 0}
     - target: {fileID: 2788983324132762089, guid: 402c31b8c3aaffb4187cda8992f3fe4a,
         type: 3}
       propertyPath: m_Name
       value: Tesla
+      objectReference: {fileID: 0}
+    - target: {fileID: 2788983324132762089, guid: 402c31b8c3aaffb4187cda8992f3fe4a,
+        type: 3}
+      propertyPath: m_TagString
+      value: car
       objectReference: {fileID: 0}
     - target: {fileID: 2790487885244085251, guid: 402c31b8c3aaffb4187cda8992f3fe4a,
         type: 3}
@@ -2097,7 +2102,7 @@ PrefabInstance:
     - target: {fileID: 2790487885244085251, guid: 402c31b8c3aaffb4187cda8992f3fe4a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -41.8
+      value: -9.7
       objectReference: {fileID: 0}
     - target: {fileID: 2790487885244085251, guid: 402c31b8c3aaffb4187cda8992f3fe4a,
         type: 3}
