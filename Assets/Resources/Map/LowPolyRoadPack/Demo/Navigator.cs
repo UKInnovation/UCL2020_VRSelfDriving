@@ -66,8 +66,6 @@ namespace VehicleNavigation
                     break;
                 }
 
-                Debug.Log(current_Ver.gameObject.name);
-                Debug.Log(current_Ver.OutGoingEdge.Count);
                 for(int i = 0; i < current_Ver.OutGoingEdge.Count; i++)
                 {
                     float AngleDiff = 0;
