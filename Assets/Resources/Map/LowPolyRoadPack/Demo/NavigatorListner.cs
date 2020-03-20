@@ -8,6 +8,7 @@ namespace VehicleNavigation
     {
         private Queue<Rail> rails;
         private Rail currentRail;
+        // private Rail _onRail;
         private float _nextWheelAngle;
         private float _nextTorque;
         private float _nextBrakeTorqueRatio;
@@ -17,6 +18,8 @@ namespace VehicleNavigation
         public float NextTorque {get{return _nextTorque;}}
         public float NextBrakeToruqeRatio {get{return _nextBrakeTorqueRatio;}}
         public Rail CurrentRail{get {return currentRail;}}
+        // public Rail OnRail{get {return _onRail;}}
+
         public bool ArrivedDestination = false;
         public Rigidbody carR;
 
@@ -37,15 +40,19 @@ namespace VehicleNavigation
             UpdateTorque();
             UpdateBrakeTorque();
             UpdateRailCompletePercentage();
-            // DequeDisabledRail();
+            DequeDisabledRail();
         }
 
         private void OnTriggerEnter(Collider other) 
         {
             if(other.gameObject.GetComponent<Rail>()!= null)
             {
-                rails.Enqueue(other.gameObject.GetComponent<Rail>());
-                currentRail = other.gameObject.GetComponent<Rail>();
+                if(other.gameObject.GetComponent<Rail>().isActive || currentRail == null)
+                {
+                    rails.Enqueue(other.gameObject.GetComponent<Rail>());
+                    currentRail = other.gameObject.GetComponent<Rail>();
+                }
+                // _onRail = other.gameObject.GetComponent<Rail>();
             }   
         }
 
@@ -53,20 +60,23 @@ namespace VehicleNavigation
         {
             if(other.gameObject.GetComponent<Rail>() != null)
             {
-                Rail rail = rails.Dequeue();
-                if(rail.gameObject.GetComponent<Edge>() != null)
-                {
-                    rail.gameObject.GetComponent<Edge>().DeActivate();    
-                }
-                else
-                {
-                    rail.DeActivate();
-                }
+                if(other.gameObject.GetComponent<Rail>().isActive){
+                    Rail rail = rails.Dequeue();
+                    if(rail.gameObject.GetComponent<Edge>() != null)
+                    {
+                        rail.gameObject.GetComponent<Edge>().DeActivate();    
+                    }
+                    else
+                    {
+                        rail.DeActivate();
+                    }
 
-                if(rails.Count == 0)
-                {
-                    currentRail = null;
+                    if(rails.Count == 0)
+                    {
+                        currentRail = null;
+                    }
                 }
+                // _onRail = other.gameObject.GetComponent<Rail>();
             }
         }
 
@@ -178,19 +188,19 @@ namespace VehicleNavigation
             }
         }
 
-        // private void DequeDisabledRail()
-        // {
-        //     if(rails.Count > 0)
-        //     {
-        //         if(rails.Peek().Railway.enabled == false)
-        //         {
-        //             rails.Dequeue();
-        //             if(rails.Count == 0)
-        //             {
-        //                 currentRail = null;
-        //             }
-        //         }
-        //     }
-        // }
+        private void DequeDisabledRail()
+        {
+            if(rails.Count > 0)
+            {
+                if(rails.Peek().Railway.enabled == false)
+                {
+                    rails.Dequeue();
+                    if(rails.Count == 0)
+                    {
+                        currentRail = null;
+                    }
+                }
+            }
+        }
     }
 }

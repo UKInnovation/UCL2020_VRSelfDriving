@@ -26,19 +26,14 @@ namespace VehicleNavigation
         }
 
         void Update() {
-            if(_fromEdge.isActive && _toEdge.isActive && !isActivate)
+            if(_fromEdge.isActive && _toEdge.isActive)
             {
-                if(!isActivate)
-                {
-                    Activate();
-                }
+                Debug.Log("here");
+                Activate();
             }
             else if(isActivate)
             {
-                if(isActivate)
-                {
-                    DeActivate();
-                }
+                DeActivate();
             }
         }
 

@@ -47,7 +47,7 @@ namespace VehicleNavigation
         /// </summary>
         void Start()
         {
-            NavigateTo(new Vector2(20000, 2000));
+            StartCoroutine(test());
         }
 
         private void initializeGrid()
@@ -154,6 +154,12 @@ namespace VehicleNavigation
         private void OnDecreaseButtonHold()
         {
             ChangeMapSize(0.3f);
+        }
+
+        IEnumerator test(){
+            yield return new WaitForSeconds(2);
+            NavigateTo(new Vector2(-1000, -1000));
+            
         }
     }
 }

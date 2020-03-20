@@ -43,6 +43,7 @@ namespace VehicleNavigation
                 if(Vector3.Distance(transform.position, destination) < 5)
                 {
                     navigator.DeactivateActivedNavigatorElements();
+                    Debug.Log("here");
                     destination = Vector3.zero;
                     // NavigateTo(new Vector3(0, 0, 50));
                 }
@@ -51,25 +52,27 @@ namespace VehicleNavigation
 
         public void directTo(Vertex vertex)
         {
-            Vertex currentEdgeStartVertex;
+            Vertex StartVertex;
 
             if(navigatorListner.CurrentRail.GetComponent<Edge>() != null)
             {
-                currentEdgeStartVertex = navigatorListner.CurrentRail.GetComponent<Edge>().StartVertex;
+                StartVertex = navigatorListner.CurrentRail.GetComponent<Edge>().EndVertex;
+                navigatorListner.CurrentRail.GetComponent<Edge>().Activate();
             }
             else
             {
-                currentEdgeStartVertex = navigatorListner.CurrentRail.transform.parent.GetComponent<Curve>().FromEdge.StartVertex;
+                StartVertex = navigatorListner.CurrentRail.transform.parent.GetComponent<Curve>().FromEdge.EndVertex;
+                navigatorListner.CurrentRail.transform.parent.GetComponent<Curve>().FromEdge.Activate();
             }
-            if(currentEdgeStartVertex != vertex)
+            if(StartVertex != vertex)
             {
-                Debug.Log(vertex.gameObject.name);
-                navigator.getShortestRoute(currentEdgeStartVertex, vertex);
+                navigator.getShortestRoute(StartVertex, vertex);
             }
         }
 
         public void NavigateTo(Vector3 realWorldPos)
         {
+            Debug.Log(realWorldPos);
             float shortestDistance = float.MaxValue;
             Edge closestEdge = null;
             foreach(Edge edge in navigator.Edges)
@@ -90,6 +93,8 @@ namespace VehicleNavigation
             }
 
             destination = closestEdge.transform.position + Offset;
+            Debug.Log(closestEdge.gameObject.name);
+            Debug.Log(destination);
             if(Vector3.Dot(destination - transform.position, closestEdge.Direction) < 0 && closestEdge == navigatorListner.CurrentRail.GetComponent<Edge>())
             {
                 destination = Vector3.zero;
