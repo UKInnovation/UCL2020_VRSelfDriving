@@ -159,7 +159,7 @@ namespace OculusSampleFramework
 			_isInitialized = true;
 		}
 
-		private void Update()
+		private void FixedUpdate()
 		{
 			if (!Hands.Instance.IsInitialized() || !_isInitialized || _capsuleToTrack == null)
 			{
