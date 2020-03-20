@@ -40,7 +40,7 @@ namespace VehicleNavigation
             UpdateTorque();
             UpdateBrakeTorque();
             UpdateRailCompletePercentage();
-            DequeDisabledRail();
+            // DequeDisabledRail();
         }
 
         private void OnTriggerEnter(Collider other) 
@@ -188,19 +188,19 @@ namespace VehicleNavigation
             }
         }
 
-        private void DequeDisabledRail()
-        {
-            if(rails.Count > 0)
-            {
-                if(rails.Peek().Railway.enabled == false)
-                {
-                    rails.Dequeue();
-                    if(rails.Count == 0)
-                    {
-                        currentRail = null;
-                    }
-                }
-            }
-        }
+        // private void DequeDisabledRail()
+        // {
+        //     if(rails.Count > 0)
+        //     {
+        //         if(rails.Peek().Railway.enabled == false)
+        //         {
+        //             rails.Dequeue();
+        //             if(rails.Count == 0)
+        //             {
+        //                 currentRail = null;
+        //             }
+        //         }
+        //     }
+        // }
     }
 }

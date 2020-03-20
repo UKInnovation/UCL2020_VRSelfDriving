@@ -43,9 +43,8 @@ namespace VehicleNavigation
                 if(Vector3.Distance(transform.position, destination) < 5)
                 {
                     navigator.DeactivateActivedNavigatorElements();
-                    Debug.Log("here");
                     destination = Vector3.zero;
-                    // NavigateTo(new Vector3(0, 0, 50));
+                    // NavigateTo(new Vector3(73, 0, -35));
                 }
             }
         }
@@ -57,22 +56,31 @@ namespace VehicleNavigation
             if(navigatorListner.CurrentRail.GetComponent<Edge>() != null)
             {
                 StartVertex = navigatorListner.CurrentRail.GetComponent<Edge>().EndVertex;
-                navigatorListner.CurrentRail.GetComponent<Edge>().Activate();
+                if(StartVertex != vertex)
+                {
+                    navigator.ActiveEdge(navigatorListner.CurrentRail.GetComponent<Edge>());
+                    StartVertex.Prev_Edge = navigatorListner.CurrentRail.GetComponent<Edge>();
+                }
+                else
+                {
+                    StartVertex = navigatorListner.CurrentRail.GetComponent<Edge>().StartVertex;
+                }
             }
             else
             {
                 StartVertex = navigatorListner.CurrentRail.transform.parent.GetComponent<Curve>().FromEdge.EndVertex;
-                navigatorListner.CurrentRail.transform.parent.GetComponent<Curve>().FromEdge.Activate();
+                navigator.ActiveEdge(navigatorListner.CurrentRail.transform.parent.GetComponent<Curve>().FromEdge);
             }
             if(StartVertex != vertex)
             {
+                Debug.Log(StartVertex);
+                Debug.Log(vertex);
                 navigator.getShortestRoute(StartVertex, vertex);
             }
         }
 
         public void NavigateTo(Vector3 realWorldPos)
         {
-            Debug.Log(realWorldPos);
             float shortestDistance = float.MaxValue;
             Edge closestEdge = null;
             foreach(Edge edge in navigator.Edges)
@@ -84,6 +92,7 @@ namespace VehicleNavigation
                     closestEdge = edge;
                 }
             }
+            Debug.Log(closestEdge.gameObject.name);
 
             Vector3 FromEdgeToPos = realWorldPos - closestEdge.transform.position;
             Vector3 Offset = Vector3.Project(FromEdgeToPos, closestEdge.Direction);

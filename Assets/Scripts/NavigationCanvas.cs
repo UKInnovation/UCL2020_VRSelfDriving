@@ -158,7 +158,8 @@ namespace VehicleNavigation
 
         IEnumerator test(){
             yield return new WaitForSeconds(2);
-            NavigateTo(new Vector2(-1000, -1000));
+            navigatorController.NavigateTo(new Vector3(-25.2f, 0, 53.8f));
+                        // Instantiate(prefeb, new Vector3(-98f, 0, -271f), new Quaternion());
             
         }
     }

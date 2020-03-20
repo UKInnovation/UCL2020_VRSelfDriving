@@ -27,14 +27,13 @@ namespace VehicleNavigation
         /// <summary>
         /// Awake is called when the script instance is being loaded.
         /// </summary>
-        void Awake()
+        void Start()
         {
             _vertexs = GetComponentsInChildren<Vertex>();
             _edges = GetComponentsInChildren<Edge>();
             for(int i = 0; i < _edges.Length; i++)
             {
                 _edges[i].StartVertex.addEdge(_edges[i]);
-
             }
         }
 
@@ -48,7 +47,7 @@ namespace VehicleNavigation
             Visited_Vers.Add(StartPoint);
             Hash[StartPoint] = 0;
             // text.text = StartPoint.OutGoingEdge.Count.ToString();
-            while(true)
+            while(Vers.Count != 0)
             {
                 Vertex current_Ver = null;
                 float shortestDistance = int.MaxValue;
@@ -67,16 +66,37 @@ namespace VehicleNavigation
                     break;
                 }
 
+                Debug.Log(current_Ver.gameObject.name);
+                Debug.Log(current_Ver.OutGoingEdge.Count);
                 for(int i = 0; i < current_Ver.OutGoingEdge.Count; i++)
                 {
-                    Vertex reachableVertex = current_Ver.OutGoingEdge[i].EndVertex;
-                    if(!Visited_Vers.Contains(reachableVertex))
+                    float AngleDiff = 0;
+                    if(current_Ver.Prev_Edge != null)
                     {
-                        reachableVertex.Prev_Ver = current_Ver;
-                        reachableVertex.Prev_Edge = current_Ver.OutGoingEdge[i];
-                        Hash[reachableVertex] = Hash[current_Ver] + current_Ver.OutGoingEdge[i].Distance;
-                        Vers.Add(reachableVertex);
-                        Visited_Vers.Add(reachableVertex);
+                        AngleDiff = Mathf.Abs(current_Ver.OutGoingEdge[i].transform.eulerAngles.y - current_Ver.Prev_Edge.transform.eulerAngles.y);
+                        if(AngleDiff > 180)
+                        {
+                            AngleDiff = 360 - AngleDiff;
+                        }
+                    }
+                    // Debug.Log(current_Ver.OutGoingEdge[i].gameObject.name);
+                    // Debug.Log(current_Ver.OutGoingEdge[i].transform.eulerAngles.y);
+                    // Debug.Log(current_Ver.Prev_Edge.gameObject.name);
+                    // Debug.Log(current_Ver.Prev_Edge.transform.eulerAngles.y);
+                    // Debug.Log(AngleDiff);
+                
+
+                    if(AngleDiff < 100)
+                    {
+                        Vertex reachableVertex = current_Ver.OutGoingEdge[i].EndVertex;
+                        if(!Visited_Vers.Contains(reachableVertex))
+                        {
+                            reachableVertex.Prev_Ver = current_Ver;
+                            reachableVertex.Prev_Edge = current_Ver.OutGoingEdge[i];
+                            Hash[reachableVertex] = Hash[current_Ver] + current_Ver.OutGoingEdge[i].Distance;
+                            Vers.Add(reachableVertex);
+                            Visited_Vers.Add(reachableVertex);
+                        }
                     }
                 }
             }
@@ -106,6 +126,12 @@ namespace VehicleNavigation
             {
                 edge.DeActivate();
             }
+        }
+
+        public void ActiveEdge(Edge edge)
+        {
+            currentActivedEdges.Add(edge);
+            edge.Activate();
         }
     }
 }
