@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VehicleNavigation
 {
-     public class Edge : MonoBehaviour
+    public class Edge : MonoBehaviour
     {
         private Vector3 _direction;
         [SerializeField]
@@ -15,10 +15,10 @@ namespace VehicleNavigation
         private Rail _rail;
         // private List<CheckPoint> _checkPoints;
 
-        public Vector3 Direction{get{return _direction;}}
-        public Vertex StartVertex{get{return _startVertex;}}
-        public Vertex EndVertex{get{return _endVertex;}}
-        public float Distance{get{return _distance;}}
+        public Vector3 Direction { get { return _direction; } }
+        public Vertex StartVertex { get { return _startVertex; } }
+        public Vertex EndVertex { get { return _endVertex; } }
+        public float Distance { get { return _distance; } }
         // public List<CheckPoint> CheckPoints{get{return _checkPoints;}}
         public bool isActive = false;
 
@@ -44,5 +44,5 @@ namespace VehicleNavigation
             _rail.DeActivate();
             isActive = false;
         }
-    }   
+    }
 }

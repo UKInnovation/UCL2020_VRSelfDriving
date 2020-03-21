@@ -37,7 +37,7 @@ namespace VehicleNavigation
             }
         }
 
-        public void getShortestRoute(Vertex StartPoint, Vertex Destnation, Edge StartEdge, Edge DestinationEdge)
+        public void getShortestRoute(Vertex StartPoint, Vertex Destination, Edge StartEdge, Edge DestinationEdge)
         {
             List<Vertex> Vers = new List<Vertex>();
             List<Vertex> Visited_Vers = new List<Vertex>();
@@ -47,7 +47,6 @@ namespace VehicleNavigation
             Vers.Add(StartPoint);
             Visited_Vers.Add(StartPoint);
             Hash[StartPoint] = 0;
-            // text.text = StartPoint.OutGoingEdge.Count.ToString();
             while (Vers.Count != 0)
             {
                 Vertex current_Ver = null;
@@ -61,13 +60,14 @@ namespace VehicleNavigation
                     }
                 }
                 Vers.Remove(current_Ver);
-
-                if (current_Ver == Destnation)
+                Debug.Log(current_Ver.name);
+                if (current_Ver == Destination)
                 {
                     float AngleDiff = 0;
                     if (current_Ver.Prev_Edge != null)
                     {
                         AngleDiff = Mathf.Abs(DestinationEdge.transform.eulerAngles.y - current_Ver.Prev_Edge.transform.eulerAngles.y);
+                        Debug.Log(AngleDiff);
                         if (AngleDiff > 180)
                         {
                             AngleDiff = 360 - AngleDiff;
@@ -90,20 +90,23 @@ namespace VehicleNavigation
                             AngleDiff = 360 - AngleDiff;
                         }
                     }
-                    Debug.Log(current_Ver.OutGoingEdge[i].gameObject.name);
-                    Debug.Log(current_Ver.OutGoingEdge[i].transform.eulerAngles.y);
-                    Debug.Log(current_Ver.Prev_Edge.gameObject.name);
-                    Debug.Log(current_Ver.Prev_Edge.transform.eulerAngles.y);
-                    Debug.Log(AngleDiff);
+                    // Debug.Log(current_Ver.OutGoingEdge[i].gameObject.name);
+                    // Debug.Log(current_Ver.OutGoingEdge[i].transform.eulerAngles.y);
+                    // Debug.Log(current_Ver.Prev_Edge.gameObject.name);
+                    // Debug.Log(current_Ver.Prev_Edge.transform.eulerAngles.y);
+                    // Debug.Log(AngleDiff);
 
 
                     if (AngleDiff < 100)
                     {
+                        current_Ver.OutGoingEdge[i].Activate();
                         Vertex reachableVertex = current_Ver.OutGoingEdge[i].EndVertex;
                         if (!Visited_Vers.Contains(reachableVertex))
                         {
+                            Debug.Log("here");
                             reachableVertex.Prev_Ver = current_Ver;
                             reachableVertex.Prev_Edge = current_Ver.OutGoingEdge[i];
+                            reachableVertex.Prev_Edges_tired.Add(current_Ver.OutGoingEdge[i]);
                             Hash[reachableVertex] = Hash[current_Ver] + current_Ver.OutGoingEdge[i].Distance;
                             Vers.Add(reachableVertex);
                             Visited_Vers.Add(reachableVertex);
@@ -113,7 +116,7 @@ namespace VehicleNavigation
             }
 
             // List<Vertex> shortestRoute = new List<Vertex>();
-            Vertex vertex = Destnation;
+            Vertex vertex = Destination;
             while (vertex != null)
             {
                 vertex.setActive();

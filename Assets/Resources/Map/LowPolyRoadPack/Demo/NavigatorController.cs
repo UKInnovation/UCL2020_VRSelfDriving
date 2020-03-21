@@ -143,8 +143,8 @@ namespace VehicleNavigation
             }
 
             destination = closestEdge.transform.position + Offset;
-            Debug.Log(closestEdge.gameObject.name);
-            Debug.Log(destination);
+            // Debug.Log(closestEdge.gameObject.name);
+            // Debug.Log(destination);
             if (Vector3.Dot(destination - transform.position, closestEdge.Direction) < 0 && closestEdge == navigatorListner.CurrentRail.GetComponent<Edge>())
             {
                 destination = Vector3.zero;
