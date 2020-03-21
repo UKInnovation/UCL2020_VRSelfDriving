@@ -26,15 +26,15 @@ public class AirConditioningPanel : MonoBehaviour
     }
     public void switchToMode(int num)
     {
-        for(int i = 0 ; i < Buttons.Length; i++)
+        for (int i = 0; i < Buttons.Length; i++)
         {
-            if(i == num)
+            if (i == num)
             {
                 Buttons[i].Select();
             }
             else
             {
-                Buttons[i].CancelSelect();  
+                Buttons[i].CancelSelect();
             }
         }
     }
