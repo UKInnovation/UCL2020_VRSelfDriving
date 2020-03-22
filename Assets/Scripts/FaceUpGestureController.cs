@@ -24,10 +24,11 @@ namespace YoyouOculusFramework
         private bool LHisFaceDwon;
         public event UnityAction<float, float> OnRisingOrFalling;
         public Text text;
-  
-        void Awake() 
+
+        void Awake()
         {
-            INSTANCE = this;    
+            INSTANCE = this;
+            text = GameObject.Find("Text").GetComponent<Text>();
         }
         void Start()
         {
@@ -42,9 +43,8 @@ namespace YoyouOculusFramework
         // Update is called once per frame
         void Update()
         {
-            if(OnRisingOrFalling != null)
+            if (OnRisingOrFalling != null)
             {
-                text.text = "amHere";
                 RHprevPos = RHcurrentPos;
                 LHprevPos = LHcurrentPos;
 
@@ -60,31 +60,32 @@ namespace YoyouOculusFramework
                 float RHamount = 0;
                 float LHamount = 0;
 
-                if(RHisFaceUp)
+                if (RHisFaceUp)
                 {
-                    if(RHcurrentPos.y - RHprevPos.y > 0)
+                    text.text = "here";
+                    if (RHcurrentPos.y - RHprevPos.y > 0)
                     {
                         RHamount = RHcurrentPos.y - RHprevPos.y;
                     }
                 }
-                else if(RHisFaceDwon)
+                else if (RHisFaceDwon)
                 {
-                    if(RHcurrentPos.y - RHprevPos.y < 0)
+                    if (RHcurrentPos.y - RHprevPos.y < 0)
                     {
                         RHamount = RHcurrentPos.y - RHprevPos.y;
                     }
                 }
 
-                if(LHisFaceUp)
+                if (LHisFaceUp)
                 {
-                    if(LHcurrentPos.y - LHprevPos.y > 0)
+                    if (LHcurrentPos.y - LHprevPos.y > 0)
                     {
                         LHamount = LHcurrentPos.y - LHprevPos.y;
                     }
                 }
-                else if(LHisFaceDwon)
+                else if (LHisFaceDwon)
                 {
-                    if(LHcurrentPos.y - LHprevPos.y < 0)
+                    if (LHcurrentPos.y - LHprevPos.y < 0)
                     {
                         LHamount = LHcurrentPos.y - LHprevPos.y;
                     }

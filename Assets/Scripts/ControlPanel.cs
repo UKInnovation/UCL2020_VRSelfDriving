@@ -15,7 +15,7 @@ namespace YoyouOculusFramework
         private Canvas navigationPage;
         [SerializeField]
         private Canvas musicPage;
-        [SerializeField]    
+        [SerializeField]
         private Canvas gamePage;
         [SerializeField]
         private HandTrackingButton startPageButton;
@@ -23,7 +23,7 @@ namespace YoyouOculusFramework
         private HandTrackingButton NavigationPageButton;
         [SerializeField]
         private HandTrackingButton musicPageButton;
-        [SerializeField]    
+        [SerializeField]
         private HandTrackingButton gamePageButton;
         private RectTransform PageAnchor;
         private RectTransform MainPageButtonAnchor;
@@ -58,10 +58,10 @@ namespace YoyouOculusFramework
             musicPage.gameObject.SetActive(false);
             navigationPage.gameObject.SetActive(false);
 
-            initialize_Button(ref startPageButton, MainPageButtonAnchor, delegate{toStartPage();});
-            initialize_Button(ref NavigationPageButton, NavigationPageButtonAnchor, delegate{toNavigationPage();});
-            initialize_Button(ref musicPageButton, MusicPageButtonAnchor, delegate{toMusicPage();});
-            initialize_Button(ref gamePageButton, GamePageButtonAnchor, delegate{toGamePage();});
+            initialize_Button(ref startPageButton, MainPageButtonAnchor, delegate { toStartPage(); });
+            initialize_Button(ref NavigationPageButton, NavigationPageButtonAnchor, delegate { toNavigationPage(); });
+            initialize_Button(ref musicPageButton, MusicPageButtonAnchor, delegate { toMusicPage(); });
+            initialize_Button(ref gamePageButton, GamePageButtonAnchor, delegate { toGamePage(); });
             currentPage = startPage;
             toNavigationPage();
         }
@@ -72,7 +72,7 @@ namespace YoyouOculusFramework
             element.transform.SetParent(transform);
             element.GetComponent<RectTransform>().localPosition = Anchor.GetComponent<RectTransform>().localPosition;
             element.GetComponent<RectTransform>().localRotation = Anchor.GetComponent<RectTransform>().localRotation;
-            element.GetComponent<RectTransform>().localScale = Anchor.GetComponent<RectTransform>().localScale;    
+            element.GetComponent<RectTransform>().localScale = Anchor.GetComponent<RectTransform>().localScale;
         }
 
         private void initialize_Button(ref HandTrackingButton button, RectTransform Anchor, UnityAction call)
@@ -82,12 +82,12 @@ namespace YoyouOculusFramework
             button.GetComponent<RectTransform>().localPosition = Anchor.GetComponent<RectTransform>().localPosition;
             button.GetComponent<RectTransform>().localRotation = Anchor.GetComponent<RectTransform>().localRotation;
             button.GetComponent<RectTransform>().localScale = Anchor.GetComponent<RectTransform>().localScale;
-            button.OnEnterActionZone.AddListener(call);       
+            button.OnEnterActionZone.AddListener(call);
         }
 
         private void closePage(Canvas page)
         {
-            if(page.GetComponent<MusicPlayer>() == null)
+            if (page.GetComponent<MusicPlayer>() == null)
             {
                 page.gameObject.SetActive(false);
             }
@@ -100,7 +100,7 @@ namespace YoyouOculusFramework
         private void openPage(Canvas page)
         {
             page.gameObject.SetActive(true);
-            if(page.GetComponent<MusicPlayer>() != null)
+            if (page.GetComponent<MusicPlayer>() != null)
             {
                 page.GetComponent<MusicPlayer>().EnableMusicCanvas();
             }

@@ -11,7 +11,7 @@ namespace YoyouOculusFramework
         private float FanLevel = 100f;
         [SerializeField]
         private Text FanLevelT;
-        private float timer;
+        private long timer;
         [SerializeField]
         private AutoRotate surroundCircle;
         private bool Attached = false;
@@ -28,10 +28,12 @@ namespace YoyouOculusFramework
         protected override void OnHandRiseORFall(float RHamount, float LHamount)
         {
             FanLevel += RHamount * 20 + LHamount * 20;
-            if(FanLevel > 100){
+            if (FanLevel > 100)
+            {
                 FanLevel = 20;
             }
-            else if(FanLevel < 0){
+            else if (FanLevel < 0)
+            {
                 FanLevel = 0;
             }
             FanLevelT.text = ((int)FanLevel).ToString() + "%";
@@ -40,10 +42,10 @@ namespace YoyouOculusFramework
         public override void AttachToController()
         {
             faceUpGestureListner.OnRisingOrFalling += OnHandRiseORFall;
-            // surroundCircle.ChangeRotateSpeed(120);
+            surroundCircle.ChangeRotateSpeed(120);
             timer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             Attached = true;
-            
+
         }
 
         /// <summary>
@@ -51,10 +53,11 @@ namespace YoyouOculusFramework
         /// </summary>
         void Update()
         {
-            if(Attached)
+            if (Attached)
             {
-                float timeElapsed = DateTimeOffset.Now.ToUnixTimeMilliseconds() - timer;
-                if(timeElapsed > 5000){
+                long timeElapsed = DateTimeOffset.Now.ToUnixTimeMilliseconds() - timer;
+                if (timeElapsed > 5000)
+                {
                     DeAttachToController();
                     surroundCircle.ChangeRotateSpeed(30);
                     Attached = false;

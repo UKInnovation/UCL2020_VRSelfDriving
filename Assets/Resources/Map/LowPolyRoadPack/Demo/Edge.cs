@@ -44,5 +44,9 @@ namespace VehicleNavigation
             _rail.DeActivate();
             isActive = false;
         }
+        public void DisableRouteDisplayer()
+        {
+            _rail.DisableRouteDisplayer();
+        }
     }
 }

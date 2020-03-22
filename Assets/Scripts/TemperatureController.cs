@@ -11,7 +11,7 @@ namespace YoyouOculusFramework
         private float Temperature = 20f;
         [SerializeField]
         private Text TemperatureT;
-        private float timer;
+        private long timer;
         [SerializeField]
         private AutoRotate surroundCircle;
         private bool Attached = false;
@@ -28,10 +28,12 @@ namespace YoyouOculusFramework
         protected override void OnHandRiseORFall(float RHamount, float LHamount)
         {
             Temperature += RHamount * 20 + LHamount * 20;
-            if(Temperature > 30){
+            if (Temperature > 30)
+            {
                 Temperature = 30;
             }
-            else if(Temperature < 16){
+            else if (Temperature < 16)
+            {
                 Temperature = 16;
             }
             TemperatureT.text = string.Format("{0}\u00B0C", (int)Temperature);
@@ -43,7 +45,7 @@ namespace YoyouOculusFramework
             surroundCircle.ChangeRotateSpeed(120);
             timer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             Attached = true;
-            
+
         }
 
         /// <summary>
@@ -51,10 +53,12 @@ namespace YoyouOculusFramework
         /// </summary>
         void Update()
         {
-            if(Attached)
+            if (Attached)
             {
-                float timeElapsed = DateTimeOffset.Now.ToUnixTimeMilliseconds() - timer;
-                if(timeElapsed > 5000){
+                long timeElapsed = DateTimeOffset.Now.ToUnixTimeMilliseconds() - timer;
+                Debug.Log(timeElapsed);
+                if (timeElapsed > 5000)
+                {
                     DeAttachToController();
                     surroundCircle.ChangeRotateSpeed(30);
                     Attached = false;

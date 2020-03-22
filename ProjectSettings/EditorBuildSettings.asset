@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Car Simulation Scene.unity
+    path: Assets/Scenes/Car Simulation Scene SportCar.unity
     guid: c5564a91dc1e2764eaa7472d20a98257
   m_configObjects: {}

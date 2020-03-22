@@ -14,10 +14,10 @@ namespace VehicleNavigation
         private float _nextBrakeTorqueRatio;
         private bool _adjustPositionToRoadCenter = false;
 
-        public float NextWheelAngle {get{return _nextWheelAngle;}}
-        public float NextTorque {get{return _nextTorque;}}
-        public float NextBrakeToruqeRatio {get{return _nextBrakeTorqueRatio;}}
-        public Rail CurrentRail{get {return currentRail;}}
+        public float NextWheelAngle { get { return _nextWheelAngle; } }
+        public float NextTorque { get { return _nextTorque; } }
+        public float NextBrakeToruqeRatio { get { return _nextBrakeTorqueRatio; } }
+        public Rail CurrentRail { get { return currentRail; } }
         // public Rail OnRail{get {return _onRail;}}
 
         public bool ArrivedDestination = false;
@@ -43,57 +43,56 @@ namespace VehicleNavigation
             // DequeDisabledRail();
         }
 
-        private void OnTriggerEnter(Collider other) 
+        private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.GetComponent<Rail>()!= null)
+            if (other.gameObject.GetComponent<Rail>() != null)
             {
-                if(other.gameObject.GetComponent<Rail>().isActive || currentRail == null)
+                if (other.gameObject.GetComponent<Rail>().isActive || currentRail == null)
                 {
                     rails.Enqueue(other.gameObject.GetComponent<Rail>());
                     currentRail = other.gameObject.GetComponent<Rail>();
                 }
-                // _onRail = other.gameObject.GetComponent<Rail>();
-            }   
+            }
         }
 
-        private void OnTriggerExit(Collider other) 
+        private void OnTriggerExit(Collider other)
         {
-            if(other.gameObject.GetComponent<Rail>() != null)
+            if (other.gameObject.GetComponent<Rail>() != null)
             {
-                if(other.gameObject.GetComponent<Rail>().isActive){
+                if (other.gameObject.GetComponent<Rail>().isActive)
+                {
                     Rail rail = rails.Dequeue();
-                    if(rail.gameObject.GetComponent<Edge>() != null)
+                    if (rail.gameObject.GetComponent<Edge>() != null)
                     {
-                        rail.gameObject.GetComponent<Edge>().DeActivate();    
+                        rail.gameObject.GetComponent<Edge>().DeActivate();
                     }
                     else
                     {
                         rail.DeActivate();
                     }
 
-                    if(rails.Count == 0)
+                    if (rails.Count == 0)
                     {
                         currentRail = null;
                     }
                 }
-                // _onRail = other.gameObject.GetComponent<Rail>();
             }
         }
 
         private void UpdateWheelAngle()
         {
-            if(currentRail != null)
+            if (currentRail != null)
             {
-                if(currentRail.isActive)
+                if (currentRail.isActive)
                 {
-                    if(_adjustPositionToRoadCenter)
+                    if (_adjustPositionToRoadCenter)
                     {
-                        if(Vector3.Project(transform.position - currentRail.transform.position, currentRail.transform.right).magnitude < 0.5)
+                        if (Vector3.Project(transform.position - currentRail.transform.position, currentRail.transform.right).magnitude < 0.5)
                         {
                             _adjustPositionToRoadCenter = false;
                             return;
                         }
-                        if(Vector3.Dot(transform.position - currentRail.transform.position, currentRail.transform.right) > 0)
+                        if (Vector3.Dot(transform.position - currentRail.transform.position, currentRail.transform.right) > 0)
                         {
                             _nextWheelAngle = -10;
                         }
@@ -106,20 +105,20 @@ namespace VehicleNavigation
 
                     float angleDiff;
                     angleDiff = currentRail.DirectionAngle.y - transform.rotation.eulerAngles.y;
-                    if(angleDiff > 180)
+                    if (angleDiff > 180)
                     {
                         angleDiff -= 360;
                     }
-                    else if(angleDiff < -180)
+                    else if (angleDiff < -180)
                     {
                         angleDiff += 360;
                     }
                     _nextWheelAngle = angleDiff;
-                    if(angleDiff < 0.1)
+                    if (angleDiff < 0.1)
                     {
                         _adjustPositionToRoadCenter = true;
                     }
-                    
+
                 }
             }
             else
@@ -130,11 +129,11 @@ namespace VehicleNavigation
 
         private void UpdateTorque()
         {
-            if(currentRail != null)
+            if (currentRail != null)
             {
-                if(currentRail.isActive)
+                if (currentRail.isActive)
                 {
-                    if(carR.velocity.magnitude < 3)
+                    if (carR.velocity.magnitude < 3)
                     {
                         _nextTorque = 1;
                     }
@@ -143,7 +142,8 @@ namespace VehicleNavigation
                         _nextTorque = 0;
                     }
                 }
-                else{
+                else
+                {
                     _nextTorque = 0;
                 }
             }
@@ -155,9 +155,9 @@ namespace VehicleNavigation
 
         private void UpdateBrakeTorque()
         {
-            if(currentRail == null || !currentRail.isActive)
+            if (currentRail == null || !currentRail.isActive)
             {
-                if(_nextBrakeTorqueRatio < 1)
+                if (_nextBrakeTorqueRatio < 1)
                 {
                     _nextBrakeTorqueRatio += 0.1f;
                 }
@@ -170,11 +170,11 @@ namespace VehicleNavigation
 
         private void UpdateRailCompletePercentage()
         {
-            if(currentRail != null)
+            if (currentRail != null)
             {
                 Vector3 RailCentertoCarV = transform.position - currentRail.transform.position;
                 float disFromRailCenterToCar;
-                if(Vector3.Dot(RailCentertoCarV, currentRail.DirectionVector) > 0)
+                if (Vector3.Dot(RailCentertoCarV, currentRail.DirectionVector) > 0)
                 {
                     disFromRailCenterToCar = Vector3.Magnitude(Vector3.Project(RailCentertoCarV, currentRail.DirectionVector));
                 }
@@ -183,7 +183,7 @@ namespace VehicleNavigation
                     disFromRailCenterToCar = -Vector3.Magnitude(Vector3.Project(RailCentertoCarV, currentRail.DirectionVector));
                 }
 
-                float disFromCarToRailStart = disFromRailCenterToCar + currentRail.Distance/2;
+                float disFromCarToRailStart = disFromRailCenterToCar + currentRail.Distance / 2;
                 currentRail.RailCompletePercentage = disFromCarToRailStart / currentRail.Distance;
             }
         }

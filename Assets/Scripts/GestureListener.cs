@@ -11,7 +11,6 @@ namespace YoyouOculusFramework
     public class GestureListener : MonoBehaviour
     {
         public static GestureListener INSTANCE;
-        public Text text;
         public Hands Hands;
         private Hand LeftHand;
         private Hand RightHand;
@@ -29,10 +28,10 @@ namespace YoyouOculusFramework
         public UnityEvent SlapRight;
         public UnityEvent OKgesture;
         private GestureEvent SlapRightG;
-        private bool[] _hasGesture = new bool[]{false, false, false, false, false, false, false, false, false, false};
-        public bool[] HasGesture{get{return _hasGesture;}}
+        private bool[] _hasGesture = new bool[] { false, false, false, false, false, false, false, false, false, false };
+        public bool[] HasGesture { get { return _hasGesture; } }
 
-        void Awake() 
+        void Awake()
         {
             INSTANCE = this;
         }
@@ -45,7 +44,7 @@ namespace YoyouOculusFramework
             RightHandT = RightHand.gameObject.transform;
             LeftHandStates = new Queue<HandState>();
             RightHandStates = new Queue<HandState>();
-            AveragePinchStrengthLeft = AveragePinchStrengthRight = new float[5] {0f, 0f, 0f, 0f, 0f};
+            AveragePinchStrengthLeft = AveragePinchStrengthRight = new float[5] { 0f, 0f, 0f, 0f, 0f };
             SlapRightG = new GestureEvent(SlapRight);
         }
 
@@ -61,13 +60,13 @@ namespace YoyouOculusFramework
 
         private void UpdateHandsStates()
         {
-            if(LeftHandStates.Count > QueueMaxLength)
+            if (LeftHandStates.Count > QueueMaxLength)
             {
                 LeftHandStates.Dequeue();
             }
             LeftHandStates.Enqueue(new HandState(LeftHandT.localPosition, LeftHandT.localRotation, LeftHand.State.PinchStrength));
 
-            if(RightHandStates.Count > QueueMaxLength)
+            if (RightHandStates.Count > QueueMaxLength)
             {
                 RightHandStates.Dequeue();
             }
@@ -76,12 +75,13 @@ namespace YoyouOculusFramework
 
         private void CalculateAveragePinch()
         {
-            AveragePinchStrengthLeft = AveragePinchStrengthRight = new float[5] {0f, 0f, 0f, 0f, 0f};
+            AveragePinchStrengthLeft = AveragePinchStrengthRight = new float[5] { 0f, 0f, 0f, 0f, 0f };
             HandState[] rightHandStates = RightHandStates.ToArray();
             int counter = 0;
             for (int i = 0; i < rightHandStates.Length; i += 5)
             {
-                if(rightHandStates[i].fingerPinchStrengths != null){
+                if (rightHandStates[i].fingerPinchStrengths != null)
+                {
                     for (int j = 0; j < rightHandStates[i].fingerPinchStrengths.Length; j++)
                     {
                         AveragePinchStrengthRight[j] = AveragePinchStrengthRight[j] + rightHandStates[i].fingerPinchStrengths[j];
@@ -89,7 +89,8 @@ namespace YoyouOculusFramework
                     counter++;
                 }
             }
-            if (counter > 0){
+            if (counter > 0)
+            {
                 for (int i = 0; i < 5; i++)
                 {
                     AveragePinchStrengthRight[i] = AveragePinchStrengthRight[i] / counter;
@@ -100,7 +101,7 @@ namespace YoyouOculusFramework
             // counter = 0;
             // for (int i = 0; i < leftHandStates.Length; i = i + 5)
             // {
-                
+
             //     if(leftHandStates[i].fingerPinchStrengths != null){
             //         for (int j = 0; j < leftHandStates[i].fingerPinchStrengths.Length; j++)
             //         {
@@ -124,21 +125,22 @@ namespace YoyouOculusFramework
             InvokeOKgesture();
         }
 
-        private void InvokeSlapRight(){
-            if (SlapRight != null){
+        private void InvokeSlapRight()
+        {
+            if (SlapRight != null)
+            {
                 HandState[] rightHandStates = RightHandStates.ToArray();
-                if (AveragePinchStrengthRight[1] < 0.2){
+                if (AveragePinchStrengthRight[1] < 0.2)
+                {
                     Vector3 initialHandRotation = rightHandStates[0].rotation.eulerAngles;
                     Vector3 endHandRotation = rightHandStates[rightHandStates.Length - 1].rotation.eulerAngles;
                     Vector3 angleDiff = endHandRotation - initialHandRotation;
-                    if((initialHandRotation.x > 0 && initialHandRotation.x < 100)
+                    if ((initialHandRotation.x > 0 && initialHandRotation.x < 100)
                     && (initialHandRotation.y > 0 && initialHandRotation.y < 100)
                     && (initialHandRotation.z > 260 && initialHandRotation.z < 320))
                     {
-                        text.text = initialHandRotation.x.ToString() + " " + initialHandRotation.y.ToString() + " " + initialHandRotation.z.ToString();
-                        if(angleDiff.x < 30 && endHandRotation.y > 270 && angleDiff.z > 50)
+                        if (angleDiff.x < 30 && endHandRotation.y > 270 && angleDiff.z > 50)
                         {
-                            text.text = angleDiff.x.ToString() + " " + angleDiff.z.ToString();
                             SlapRightG.Invoke();
                             _hasGesture[(int)Gesture.RHSlapRight] = true;
                         }
@@ -147,17 +149,19 @@ namespace YoyouOculusFramework
             }
         }
 
-        private void InvokeOKgesture(){
+        private void InvokeOKgesture()
+        {
             HandState[] rightHandStates = RightHandStates.ToArray();
             Vector3 AverageHandRogation = new Vector3();
-            for(int i = 0; i < rightHandStates.Length; i += 5)
+            for (int i = 0; i < rightHandStates.Length; i += 5)
             {
                 AverageHandRogation += rightHandStates[i].rotation.eulerAngles;
             }
-            AverageHandRogation = AverageHandRogation / (QueueMaxLength/5);
+            AverageHandRogation = AverageHandRogation / (QueueMaxLength / 5);
             // text.text = AverageHandRogation.x.ToString() + " " + AverageHandRogation.y.ToString() + " " + AverageHandRogation.z.ToString();
-            if (AveragePinchStrengthRight[1] == 1 && AveragePinchStrengthRight[2] == 0 && AveragePinchStrengthRight[3] == 0 && AveragePinchStrengthRight[4] == 0){
-                if(AverageHandRogation.x > 340 && AverageHandRogation.y > 0 && AverageHandRogation.y < 40 && AverageHandRogation.z > 240 && AverageHandRogation.z < 280)
+            if (AveragePinchStrengthRight[1] == 1 && AveragePinchStrengthRight[2] == 0 && AveragePinchStrengthRight[3] == 0 && AveragePinchStrengthRight[4] == 0)
+            {
+                if (AverageHandRogation.x > 340 && AverageHandRogation.y > 0 && AverageHandRogation.y < 40 && AverageHandRogation.z > 240 && AverageHandRogation.z < 280)
                 {
                     OKgesture.Invoke();
                     _hasGesture[(int)Gesture.RHOK] = true;
@@ -172,89 +176,98 @@ namespace YoyouOculusFramework
 
         private void UpdateHandFaceUp()
         {
-            if(RHisFaceUP()){
+            if (RHisFaceUP())
+            {
                 _hasGesture[(int)Gesture.RHFaceUp] = true;
             }
-            else{
+            else
+            {
                 _hasGesture[(int)Gesture.RHFaceUp] = false;
             }
 
-            if(LHisFaceUP()){
+            if (LHisFaceUP())
+            {
                 _hasGesture[(int)Gesture.LHFaceUp] = true;
             }
-            else{
+            else
+            {
                 _hasGesture[(int)Gesture.LHFaceUp] = false;
             }
 
-            if(RHisFaceDown()){
+            if (RHisFaceDown())
+            {
                 _hasGesture[(int)Gesture.RHFaceDown] = true;
             }
-            else{
+            else
+            {
                 _hasGesture[(int)Gesture.RHFaceDown] = false;
             }
 
-            if(LHisFaceDown()){
+            if (LHisFaceDown())
+            {
                 _hasGesture[(int)Gesture.LHFaceDown] = true;
             }
-            else{
+            else
+            {
                 _hasGesture[(int)Gesture.LHFaceDown] = false;
             }
-            
+
         }
 
         private bool RHisFaceUP()
         {
-            Quaternion HandRotation = RightHandT.rotation;
+            Quaternion HandRotation = RightHandT.localRotation;
             Vector3 HandEulerAngle = HandRotation.eulerAngles;
-            if((HandEulerAngle.x < 30 || HandEulerAngle.x > 320) 
+            if ((HandEulerAngle.x < 30 || HandEulerAngle.x > 320)
                 && HandEulerAngle.y < 300 && HandEulerAngle.y > 230
                 && HandEulerAngle.z > 120 && HandEulerAngle.z < 240)
-                {
-                    return true;
-                }
+            {
+                return true;
+            }
             return false;
         }
 
         private bool RHisFaceDown()
         {
-            Quaternion HandRotation = RightHandT.rotation;
+            Quaternion HandRotation = RightHandT.localRotation;
             Vector3 HandEulerAngle = HandRotation.eulerAngles;
-            if((HandEulerAngle.x < 30 || HandEulerAngle.x > 320) 
+            if ((HandEulerAngle.x < 30 || HandEulerAngle.x > 320)
                 && HandEulerAngle.y < 120 && HandEulerAngle.y > 60
                 && (HandEulerAngle.z > 330 || HandEulerAngle.z < 30))
-                {
-                    return true;
-                }
+            {
+                return true;
+            }
             return false;
         }
 
         private bool LHisFaceUP()
         {
-            Quaternion HandRotation = LeftHandT.rotation;
+            Quaternion HandRotation = LeftHandT.localRotation;
             Vector3 HandEulerAngle = HandRotation.eulerAngles;
-            if((HandEulerAngle.x < 30 || HandEulerAngle.x > 320) 
+            if ((HandEulerAngle.x < 30 || HandEulerAngle.x > 320)
                 && HandEulerAngle.y < 300 && HandEulerAngle.y > 230
                 && (HandEulerAngle.z < 30 || HandEulerAngle.z > 320))
-                {
-                    return true;
-                }
+            {
+                return true;
+            }
             return false;
         }
 
         private bool LHisFaceDown()
         {
-            Quaternion HandRotation = LeftHandT.rotation;
+            Quaternion HandRotation = LeftHandT.localRotation;
             Vector3 HandEulerAngle = HandRotation.eulerAngles;
-            if((HandEulerAngle.x < 30 || HandEulerAngle.x > 320) 
+            if ((HandEulerAngle.x < 30 || HandEulerAngle.x > 320)
                 && HandEulerAngle.y < 130 && HandEulerAngle.y > 60
                 && (HandEulerAngle.z > 140 && HandEulerAngle.z < 200))
-                {
-                    return true;
-                }
+            {
+                return true;
+            }
             return false;
         }
 
-        public class HandState{
+        public class HandState
+        {
             public readonly Vector3 position;
             public readonly Quaternion rotation;
             public readonly float[] fingerPinchStrengths;
@@ -267,21 +280,25 @@ namespace YoyouOculusFramework
             }
         }
 
-        public class GestureEvent{
+        public class GestureEvent
+        {
             private UnityEvent Event;
             private long timer;
 
-            public GestureEvent(UnityEvent Event){
+            public GestureEvent(UnityEvent Event)
+            {
                 this.Event = Event;
                 timer = 0;
             }
 
-            public void Invoke(){
-            long TimeElapsed = DateTimeOffset.Now.ToUnixTimeMilliseconds() - timer;
-            if (TimeElapsed > 1200){
-                Event.Invoke();
-                timer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            }
+            public void Invoke()
+            {
+                long TimeElapsed = DateTimeOffset.Now.ToUnixTimeMilliseconds() - timer;
+                if (TimeElapsed > 1200)
+                {
+                    Event.Invoke();
+                    timer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                }
             }
 
         }

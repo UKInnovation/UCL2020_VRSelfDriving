@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace VehicleNavigation
 {
@@ -16,9 +17,10 @@ namespace VehicleNavigation
         public Vertex StartPoint;
         public Vertex EndPoint;
 
-        public Text text;
         private List<Vertex> currentActivedVertices = new List<Vertex>();
         private List<Edge> currentActivedEdges = new List<Edge>();
+        public UnityEvent OnNavigationElementsChange;
+        private Text text;
         /// <summary>
         /// Start is called on the frame when a script is enabled just before
         /// any of the Update methods is called the first time.
@@ -35,9 +37,10 @@ namespace VehicleNavigation
             {
                 _edges[i].StartVertex.addEdge(_edges[i]);
             }
+            text = GameObject.Find("Text").GetComponent<Text>();
         }
 
-        public void getShortestRoute(Vertex StartPoint, Vertex Destination, Edge StartEdge, Edge DestinationEdge)
+        public void getShortestRoute(Vertex StartPoint, Vertex Destination, Edge StartEdge)
         {
             List<Vertex> Vers = new List<Vertex>();
             List<Vertex> Visited_Vers = new List<Vertex>();
@@ -46,9 +49,14 @@ namespace VehicleNavigation
             StartPoint.Prev_Edge = StartEdge;
             Vers.Add(StartPoint);
             Visited_Vers.Add(StartPoint);
+
             Hash[StartPoint] = 0;
+            int counter = 0;
             while (Vers.Count != 0)
             {
+                text.text = counter.ToString();
+
+                counter++;
                 Vertex current_Ver = null;
                 float shortestDistance = int.MaxValue;
                 foreach (Vertex ver in Vers)
@@ -59,24 +67,12 @@ namespace VehicleNavigation
                         current_Ver = ver;
                     }
                 }
+
                 Vers.Remove(current_Ver);
-                Debug.Log(current_Ver.name);
+
                 if (current_Ver == Destination)
                 {
-                    float AngleDiff = 0;
-                    if (current_Ver.Prev_Edge != null)
-                    {
-                        AngleDiff = Mathf.Abs(DestinationEdge.transform.eulerAngles.y - current_Ver.Prev_Edge.transform.eulerAngles.y);
-                        Debug.Log(AngleDiff);
-                        if (AngleDiff > 180)
-                        {
-                            AngleDiff = 360 - AngleDiff;
-                        }
-                        if (AngleDiff < 100)
-                        {
-                            break;
-                        }
-                    }
+                    break;
                 }
 
                 for (int i = 0; i < current_Ver.OutGoingEdge.Count; i++)
@@ -90,23 +86,14 @@ namespace VehicleNavigation
                             AngleDiff = 360 - AngleDiff;
                         }
                     }
-                    // Debug.Log(current_Ver.OutGoingEdge[i].gameObject.name);
-                    // Debug.Log(current_Ver.OutGoingEdge[i].transform.eulerAngles.y);
-                    // Debug.Log(current_Ver.Prev_Edge.gameObject.name);
-                    // Debug.Log(current_Ver.Prev_Edge.transform.eulerAngles.y);
-                    // Debug.Log(AngleDiff);
-
 
                     if (AngleDiff < 100)
                     {
-                        current_Ver.OutGoingEdge[i].Activate();
                         Vertex reachableVertex = current_Ver.OutGoingEdge[i].EndVertex;
                         if (!Visited_Vers.Contains(reachableVertex))
                         {
-                            Debug.Log("here");
                             reachableVertex.Prev_Ver = current_Ver;
                             reachableVertex.Prev_Edge = current_Ver.OutGoingEdge[i];
-                            reachableVertex.Prev_Edges_tired.Add(current_Ver.OutGoingEdge[i]);
                             Hash[reachableVertex] = Hash[current_Ver] + current_Ver.OutGoingEdge[i].Distance;
                             Vers.Add(reachableVertex);
                             Visited_Vers.Add(reachableVertex);
@@ -114,6 +101,7 @@ namespace VehicleNavigation
                     }
                 }
             }
+
 
             // List<Vertex> shortestRoute = new List<Vertex>();
             Vertex vertex = Destination;
@@ -128,17 +116,26 @@ namespace VehicleNavigation
                 }
                 vertex = vertex.Prev_Ver;
             }
+            if (OnNavigationElementsChange != null)
+            {
+                OnNavigationElementsChange.Invoke();
+            }
         }
 
         public void DeactivateActivedNavigatorElements()
         {
-            foreach (Vertex vertex in currentActivedVertices)
+            foreach (Vertex vertex in _vertexs)
             {
                 vertex.DeActivate();
+                vertex.reset();
             }
-            foreach (Edge edge in currentActivedEdges)
+            foreach (Edge edge in _edges)
             {
                 edge.DeActivate();
+            }
+            if (OnNavigationElementsChange != null)
+            {
+                OnNavigationElementsChange.Invoke();
             }
         }
 

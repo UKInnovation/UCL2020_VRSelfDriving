@@ -87,18 +87,15 @@ namespace VehicleNavigation
         private void NavigateTo(Vector2 relativePos)
         {
             SetActivateGrids(false);
-            Debug.Log(relativePos);
+
             RectTransform canvsRect = this.GetComponent<RectTransform>();
             float canvas_high = canvsRect.sizeDelta.y;
             float canvas_width = canvsRect.sizeDelta.x;
 
             float MapWorldScaleRatio = (MapCamera.orthographicSize * 2) / canvas_high;
             Vector2 realWorldrelativePos = relativePos * MapWorldScaleRatio;
-
             Vector3 CameraHeadingDirection3d = MapCamera.transform.rotation.eulerAngles;
-            // Vector2 CameraHeadingDirection2d = new Vector2(CameraHeadingDirection3d.x, CameraHeadingDirection3d.z);
 
-            // Debug.Log(relativePos);
             float angle = Mathf.Atan(relativePos.x / relativePos.y);
             if (relativePos.y < 0)
             {
@@ -109,8 +106,8 @@ namespace VehicleNavigation
             Debug.Log(carT.position);
             Vector3 realWorldPos = carT.position + (new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)) * realWorldrelativePos.magnitude);
             navigatorController.NavigateTo(realWorldPos);
-            GameObject cude = Instantiate(prefeb, realWorldPos, new Quaternion());
-            cude.transform.localScale = new Vector3(5, 5, 5);
+            // GameObject cude = Instantiate(prefeb, realWorldPos, new Quaternion());
+            // cude.transform.localScale = new Vector3(5, 5, 5);
         }
 
         private void OnNavigationButtonPressed()
@@ -139,13 +136,13 @@ namespace VehicleNavigation
         private void ChangeMapSize(float amount)
         {
             MapCamera.orthographicSize += amount;
-            if (MapCamera.orthographicSize < 5)
+            if (MapCamera.orthographicSize < 50)
             {
-                MapCamera.orthographicSize = 5;
+                MapCamera.orthographicSize = 50;
             }
-            else if (MapCamera.orthographicSize > 100)
+            else if (MapCamera.orthographicSize > 300)
             {
-                MapCamera.orthographicSize = 100;
+                MapCamera.orthographicSize = 300;
             }
         }
 
@@ -168,7 +165,19 @@ namespace VehicleNavigation
             // {
             //     grid.OnEnterActionZone.Invoke();
             // }
-            grids[6].OnEnterActionZone.Invoke();
+
+            grids[22].OnEnterActionZone.Invoke();
+            yield return new WaitForSeconds(120);
+            grids[30].OnEnterActionZone.Invoke();
+            // grids[22].OnEnterActionZone.Invoke();
+            // yield return new WaitForSeconds(5);
+            // grids[22].OnEnterActionZone.Invoke();
+            // yield return new WaitForSeconds(5);
+            // grids[22].OnEnterActionZone.Invoke();
+            // yield return new WaitForSeconds(5);
+            // grids[22].OnEnterActionZone.Invoke();
+            // grids[22].OnEnterActionZone.Invoke();
+
         }
     }
 }

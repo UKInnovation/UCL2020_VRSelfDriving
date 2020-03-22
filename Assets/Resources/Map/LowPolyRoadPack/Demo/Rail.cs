@@ -16,12 +16,12 @@ namespace VehicleNavigation
         private float _distance;
         private SpriteRenderer _routeDisplayer;
 
-        public BoxCollider Railway{get{return _railway;}}
-        public Vector3 DirectionAngle {get{return _directionAngle;}}
-        public Vector3 DirectionVector {get{return _directionVector;}}
-        public bool isActive{get{return _isActive;}}
-        public float RailCompletePercentage {get{return _railCompletePercentage;} set{_railCompletePercentage = value;}}
-        public float Distance {get{return _distance;}}
+        public BoxCollider Railway { get { return _railway; } }
+        public Vector3 DirectionAngle { get { return _directionAngle; } }
+        public Vector3 DirectionVector { get { return _directionVector; } }
+        public bool isActive { get { return _isActive; } }
+        public float RailCompletePercentage { get { return _railCompletePercentage; } set { _railCompletePercentage = value; } }
+        public float Distance { get { return _distance; } }
 
         /// <summary>
         /// Awake is called when the script instance is being loaded.
@@ -32,7 +32,7 @@ namespace VehicleNavigation
 
             this._directionAngle = this.gameObject.transform.rotation.eulerAngles;
             this._directionVector = this.gameObject.transform.forward;
-            this._distance =  transform.localScale.z;
+            this._distance = transform.localScale.z;
             this._railway = this.gameObject.GetComponent<BoxCollider>();
             _routeDisplayer = this.GetComponentInChildren<SpriteRenderer>();
 
@@ -69,6 +69,11 @@ namespace VehicleNavigation
         {
             _routeDisplayer.size = new Vector2((1 - _railCompletePercentage), 1);
             _routeDisplayer.transform.localPosition = new Vector3(_routeDisplayer.transform.localPosition.x, _routeDisplayer.transform.localPosition.y, 0.5f - ((1 - _railCompletePercentage) / 2));
+        }
+
+        public void DisableRouteDisplayer()
+        {
+            _routeDisplayer.enabled = false;
         }
     }
 }

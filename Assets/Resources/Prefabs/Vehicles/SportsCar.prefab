@@ -217,8 +217,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.315
   m_SuspensionSpring:
-    spring: 38109.37
-    damper: 6097.4995
+    spring: 38109.363
+    damper: 6097.4985
     targetPosition: 0.5
   m_SuspensionDistance: 0.19619998
   m_ForceAppPointDistance: 0.563627
@@ -372,8 +372,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.315
   m_SuspensionSpring:
-    spring: 38128.56
-    damper: 6100.57
+    spring: 38128.566
+    damper: 6100.5703
     targetPosition: 0.5
   m_SuspensionDistance: 0.1962
   m_ForceAppPointDistance: 0.563627
@@ -8522,6 +8522,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2551091872044964360}
     m_Modifications:
+    - target: {fileID: 1618722765057373267, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618722765057373267, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618722765057373267, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.5240259
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618722765057373267, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cdf00f98e3d043344bae9b5a9d8b6e14,
+        type: 3}
+    - target: {fileID: 1618722765057373267, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
+        type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917161462116161819, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 820
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917161462116161819, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 620
+      objectReference: {fileID: 0}
     - target: {fileID: 8105845551181792296, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
         type: 3}
       propertyPath: gamePage
