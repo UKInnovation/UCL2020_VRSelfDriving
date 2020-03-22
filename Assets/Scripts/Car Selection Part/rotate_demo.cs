@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class rotate_demo : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class rotate_demo : MonoBehaviour
     public GameObject button0;
     public GameObject button1;
     public GameObject button2;
+    public Material sticker0;
+    public Material sticker1;
+    public Material sticker2;
     public float rotateSpeed = 5;
 
     public GameObject[] cars;
@@ -42,7 +46,7 @@ public class rotate_demo : MonoBehaviour
 
     public void nextCar()
     {
-        currentRotatorAngle += 179f;
+        currentRotatorAngle += 179;
         currentCarIndex++;
         currentCarIndex = currentCarIndex % 2;
         createDiscription();
@@ -51,7 +55,7 @@ public class rotate_demo : MonoBehaviour
 
     public void prevCar()
     {
-        currentRotatorAngle -= 180f;
+        currentRotatorAngle -= 179;
         currentCarIndex--;
         if (currentCarIndex < 0)
         {
@@ -77,18 +81,19 @@ public class rotate_demo : MonoBehaviour
 
     public void SwitchGray()
     {
-        for(int j = 0; j < cars.Length; j++)
+        for (int j = 0; j < cars.Length; j++)
         {
             GameObject car_apperance = cars[j].transform.Find("Appearance").gameObject;
+            print(car_apperance.name);
             Renderer car_renderer = car_apperance.GetComponentInChildren<Renderer>();
+            print(car_renderer);
             string materialPath = "Models/" + cars[j].name;
             Material[] materials = Resources.LoadAll<Material>(materialPath);
-            Debug.Log("Gray");
             for (int i = 0; i < materials.Length; i++)
             {
                 if (materials[i].name == "gray")
                 {
-                    car_renderer.material = materials[i];
+                    car_renderer.material.color = materials[i].color;
                 }
             }
         }
@@ -99,16 +104,16 @@ public class rotate_demo : MonoBehaviour
         for (int j = 0; j < cars.Length; j++)
         {
             GameObject car_apperance = cars[j].transform.Find("Appearance").gameObject;
+            print(car_apperance.name);
             Renderer car_renderer = car_apperance.GetComponentInChildren<Renderer>();
+            print(car_renderer);
             string materialPath = "Models/" + cars[j].name;
             Material[] materials = Resources.LoadAll<Material>(materialPath);
-            Debug.Log(cars[j].gameObject.name);
-            Debug.Log(car_renderer.name);
             for (int i = 0; i < materials.Length; i++)
             {
                 if (materials[i].name == "brown")
                 {
-                    car_renderer.material = materials[i];
+                    car_renderer.material.color = materials[i].color;
                 }
             }
         }
@@ -119,16 +124,96 @@ public class rotate_demo : MonoBehaviour
         for (int j = 0; j < cars.Length; j++)
         {
             GameObject car_apperance = cars[j].transform.Find("Appearance").gameObject;
+            print(car_apperance.name);
             Renderer car_renderer = car_apperance.GetComponentInChildren<Renderer>();
+            print(car_renderer);
             string materialPath = "Models/" + cars[j].name;
             Material[] materials = Resources.LoadAll<Material>(materialPath);
             for (int i = 0; i < materials.Length; i++)
             {
                 if (materials[i].name == "white")
                 {
-                    car_renderer.material = materials[i];
+                    car_renderer.material.color = materials[i].color;
                 }
             }
+        }
+    }
+
+    public void resetColour()
+    {
+        for (int j = 0; j < cars.Length; j++)
+        {
+            GameObject car_apperance = cars[j].transform.Find("Appearance").gameObject;
+            Renderer car_renderer = car_apperance.GetComponentInChildren<Renderer>();
+            GameObject reset_apperance = cars[j].transform.Find("reset").gameObject;
+            Renderer reset_renderer = reset_apperance.GetComponentInChildren<Renderer>();
+            car_renderer.material.color = reset_renderer.material.color;
+        }
+    }
+
+    public void resetDecal()
+    {
+        for (int j = 0; j < cars.Length; j++)
+        {
+            GameObject car_apperance = cars[j].transform.Find("DecalComponents").gameObject;
+            Renderer[] car_renderer = car_apperance.GetComponentsInChildren<Renderer>();
+            GameObject reset_apperance = cars[j].transform.Find("resetDecal").gameObject;
+            Renderer[] reset_renderer = reset_apperance.GetComponentsInChildren<Renderer>();
+            for (int k = 0; k < car_renderer.Length; k++)
+            {
+                car_renderer[k].material = reset_renderer[k].material;
+            }
+        }
+    }
+
+    public void changeDecal0()
+    {
+        for (int j = 0; j < cars.Length; j++)
+        {
+            GameObject car_decal = cars[j].transform.Find("DecalComponents").gameObject;
+            Renderer[] car_renderer = car_decal.GetComponentsInChildren<Renderer>();
+            for (int k = 0; k < car_renderer.Length; k++)
+            {
+                car_renderer[k].material = sticker0;
+            }
+        }
+    }
+
+    public void changeDecal1()
+    {
+        for (int j = 0; j < cars.Length; j++)
+        {
+            GameObject car_decal = cars[j].transform.Find("DecalComponents").gameObject;
+            Renderer[] car_renderer = car_decal.GetComponentsInChildren<Renderer>();
+            for (int k = 0; k < car_renderer.Length; k++)
+            {
+                car_renderer[k].material = sticker1;
+            }
+        }
+    }
+
+    public void changeDecal2()
+    {
+        for (int j = 0; j < cars.Length; j++)
+        {
+            GameObject car_decal = cars[j].transform.Find("DecalComponents").gameObject;
+            Renderer[] car_renderer = car_decal.GetComponentsInChildren<Renderer>();
+            for (int k = 0; k < car_renderer.Length; k++)
+            {
+                car_renderer[k].material = sticker2;
+            }
+        }
+    }
+
+    public void StartGame()
+    {
+        if (currentCarIndex == 0)
+        {
+            SceneManager.LoadScene("LoadingSceneTesla");
+        }
+        else
+        {
+            SceneManager.LoadScene("LoadingSceneSportCar");
         }
     }
 }

@@ -139,7 +139,7 @@ namespace YoyouOculusFramework
                     && (initialHandRotation.y > 0 && initialHandRotation.y < 100)
                     && (initialHandRotation.z > 260 && initialHandRotation.z < 320))
                     {
-                        if (angleDiff.x < 30 && endHandRotation.y > 270 && angleDiff.z > 50)
+                        if (angleDiff.x < 60 && endHandRotation.y > 250 && angleDiff.z > 30)
                         {
                             SlapRightG.Invoke();
                             _hasGesture[(int)Gesture.RHSlapRight] = true;
