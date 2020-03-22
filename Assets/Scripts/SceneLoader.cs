@@ -9,24 +9,25 @@ public class SceneLoader : MonoBehaviour
     public Image LoadingBar;
     public int SceneIndex;
     public Text percentage;
+    public string SceneName;
 
     void Start()
     {
-        StartCoroutine(LoadSceneAsyn(SceneIndex));
+        StartCoroutine(LoadScene(SceneIndex));
     }
 
 
-    IEnumerator LoadSceneAsyn(int SceneIndex)
+    IEnumerator LoadScene(int SceneIndex)
     {
         float counter = 0;
-        while(counter <= 1000)
+        while (counter <= 1000)
         {
             float progress = counter / 1000;
             LoadingBar.fillAmount = progress;
-            percentage.text = (Convert.ToInt32(counter/10)).ToString() + "%";
+            percentage.text = (Convert.ToInt32(counter / 10)).ToString() + "%";
             counter++;
             yield return null;
-        } 
-        SceneManager.LoadScene("Car Simulation Scene");
+        }
+        SceneManager.LoadScene(SceneName);
     }
 }

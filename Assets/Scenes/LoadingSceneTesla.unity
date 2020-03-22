@@ -167,6 +167,7 @@ MonoBehaviour:
   LoadingBar: {fileID: 469305625}
   SceneIndex: 1
   percentage: {fileID: 786219619}
+  SceneName: Car Simulation Scene Tesla
 --- !u!1 &469305623
 GameObject:
   m_ObjectHideFlags: 0

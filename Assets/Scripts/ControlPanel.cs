@@ -63,7 +63,6 @@ namespace YoyouOculusFramework
             initialize_Button(ref musicPageButton, MusicPageButtonAnchor, delegate { toMusicPage(); });
             initialize_Button(ref gamePageButton, GamePageButtonAnchor, delegate { toGamePage(); });
             currentPage = startPage;
-            toNavigationPage();
         }
 
         private void initialize_Canvas(ref Canvas element, RectTransform Anchor)

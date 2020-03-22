@@ -1618,11 +1618,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPage: {fileID: 7859875451433097346, guid: 5db56055c39ca384aa16e3c570f323d3,
     type: 3}
-  navigationPage: {fileID: 36161852783303466, guid: ca1b4131bbb60224e97ea736a339ad5c,
+  navigationPage: {fileID: 36161852783303466, guid: ff695296de82feb42a6ef210aa33c417,
     type: 3}
   musicPage: {fileID: 6344146348947992070, guid: 2f4cdb610daacba4eb986ed2017c921b,
     type: 3}
-  gamePage: {fileID: 1853353999113409346, guid: a5e0dc51eed7ce643852c6b90b012166,
+  gamePage: {fileID: 1853353999113409346, guid: cafc0ed72a8bc4f479f1a253c36e72a7,
     type: 3}
   startPageButton: {fileID: 2214977386954227581, guid: f7144eafd89380b44b7bc79893e099c5,
     type: 3}

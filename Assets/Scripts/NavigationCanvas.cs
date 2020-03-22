@@ -46,7 +46,7 @@ namespace VehicleNavigation
         /// </summary>
         void Start()
         {
-            StartCoroutine(test());
+            // StartCoroutine(test());
             // OnNavigationButtonPressed();
         }
 

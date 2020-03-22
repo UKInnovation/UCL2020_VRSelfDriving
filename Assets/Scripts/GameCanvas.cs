@@ -11,7 +11,6 @@ public class GameCanvas : MonoBehaviour
     public Text message;
     private BallGame ballGame;
 
-
     public void LoadGame()
     {
         this.gameObject.SetActive(false);

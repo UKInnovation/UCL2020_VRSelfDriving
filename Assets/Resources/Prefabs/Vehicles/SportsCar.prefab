@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 913621568092646943}
   - component: {fileID: 925170116512262783}
   - component: {fileID: 882916256837410219}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SportsCarChassis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,8 +217,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.315
   m_SuspensionSpring:
-    spring: 38109.363
-    damper: 6097.4985
+    spring: 38109.37
+    damper: 6097.4995
     targetPosition: 0.5
   m_SuspensionDistance: 0.19619998
   m_ForceAppPointDistance: 0.563627
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ed7128051760b42bc56c15e5a6657d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navigator: {fileID: 0}
+  navigator: {fileID: 8941696945564121295}
   maxAngle: 30
   maxTorque: 900
   brakeTorque: 30000
@@ -372,8 +372,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.315
   m_SuspensionSpring:
-    spring: 38128.566
-    damper: 6100.5703
+    spring: 38128.56
+    damper: 6100.57
     targetPosition: 0.5
   m_SuspensionDistance: 0.1962
   m_ForceAppPointDistance: 0.563627
@@ -8570,6 +8570,30 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7859875451433097346, guid: 5db56055c39ca384aa16e3c570f323d3,
         type: 3}
+    - target: {fileID: 8105845551181792296, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
+        type: 3}
+      propertyPath: startPageButton
+      value: 
+      objectReference: {fileID: 2214977386954227581, guid: 2e991301fcf67654b94f6bb72731eace,
+        type: 3}
+    - target: {fileID: 8105845551181792296, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
+        type: 3}
+      propertyPath: gamePageButton
+      value: 
+      objectReference: {fileID: 7858255249098466979, guid: e7a3639d91b289b4f89077539fa1e6f6,
+        type: 3}
+    - target: {fileID: 8105845551181792296, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
+        type: 3}
+      propertyPath: musicPageButton
+      value: 
+      objectReference: {fileID: 7858255249098466979, guid: ba4619e3317b33440a69f38a118308fe,
+        type: 3}
+    - target: {fileID: 8105845551181792296, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
+        type: 3}
+      propertyPath: NavigationPageButton
+      value: 
+      objectReference: {fileID: 6626420442488769669, guid: 29e99dca2a7e34a4aa83f99c3608d2cb,
+        type: 3}
     - target: {fileID: 8105845551181792297, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
         type: 3}
       propertyPath: m_Camera
@@ -8593,7 +8617,7 @@ PrefabInstance:
     - target: {fileID: 8105845551181792302, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.1629
+      value: 0.2067
       objectReference: {fileID: 0}
     - target: {fileID: 8105845551181792302, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
         type: 3}
@@ -8638,7 +8662,7 @@ PrefabInstance:
     - target: {fileID: 8105845551181792302, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.1003
+      value: -0.1181
       objectReference: {fileID: 0}
     - target: {fileID: 8105845551181792302, guid: 0f706e56505e5ad44aa76c0f274c5b6b,
         type: 3}
@@ -8834,7 +8858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: _trackingOriginType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_Enabled
