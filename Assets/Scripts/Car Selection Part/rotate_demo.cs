@@ -106,7 +106,7 @@ public class rotate_demo : MonoBehaviour
             GameObject car_apperance = cars[j].transform.Find("Appearance").gameObject;
             print(car_apperance.name);
             Renderer car_renderer = car_apperance.GetComponentInChildren<Renderer>();
-            print(car_renderer);
+            print(car_renderer.gameObject.name);
             string materialPath = "Models/" + cars[j].name;
             Material[] materials = Resources.LoadAll<Material>(materialPath);
             for (int i = 0; i < materials.Length; i++)

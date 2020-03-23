@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/UI.unity
+    path: Assets/Scenes/Car Selection Scene.unity
     guid: f55432a66c0b0ec4ab64b1fba6729b26
   - enabled: 0
     path: Assets/Scenes/LoadingSceneTesla.unity
