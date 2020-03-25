@@ -541,7 +541,6 @@ GameObject:
   - component: {fileID: 6344146349261430807}
   - component: {fileID: 6344146349261430792}
   - component: {fileID: 6344146349261430793}
-  - component: {fileID: 6344146349261430794}
   - component: {fileID: 7126712714202160554}
   m_Layer: 0
   m_Name: Progress Controller
@@ -602,19 +601,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6344146349261430795}
   m_CullTransparentMesh: 0
---- !u!114 &6344146349261430794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6344146349261430795}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93f21b69278adf44e8436c98fb7b0df5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 6344146349261430792}
 --- !u!114 &7126712714202160554
 MonoBehaviour:
   m_ObjectHideFlags: 0
