@@ -148,12 +148,12 @@ namespace VehicleNavigation
 
         private void OnIncreseButtonHold()
         {
-            ChangeMapSize(-0.3f);
+            ChangeMapSize(-0.8f);
         }
 
         private void OnDecreaseButtonHold()
         {
-            ChangeMapSize(0.3f);
+            ChangeMapSize(0.8f);
         }
 
         IEnumerator test()

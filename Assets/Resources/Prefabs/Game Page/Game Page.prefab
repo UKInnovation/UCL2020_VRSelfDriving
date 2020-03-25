@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.9150943, b: 0.9150943, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.45773697, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c338eaa15099f54d8bbeff809117890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotatingSpeed: 5
   x_changeShapeSpeed: 0
   y_changeShapeSpeed: 0
   changeShape: 0
@@ -372,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.9150943, b: 0.9150943, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.45773697, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -399,6 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c338eaa15099f54d8bbeff809117890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotatingSpeed: 5
   x_changeShapeSpeed: 0
   y_changeShapeSpeed: 0
   changeShape: 0
@@ -461,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.9150943, b: 0.9150943, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.45773697, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -488,6 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c338eaa15099f54d8bbeff809117890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotatingSpeed: 5
   x_changeShapeSpeed: 0
   y_changeShapeSpeed: 0
   changeShape: 0
@@ -550,7 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.9150943, b: 0.9150943, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.45773697, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -577,6 +580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c338eaa15099f54d8bbeff809117890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotatingSpeed: 5
   x_changeShapeSpeed: 0
   y_changeShapeSpeed: 0
   changeShape: 0
@@ -639,7 +643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.9150943, b: 0.9150943, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.45773697, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -666,6 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c338eaa15099f54d8bbeff809117890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotatingSpeed: 5
   x_changeShapeSpeed: 0
   y_changeShapeSpeed: 0
   changeShape: 0
@@ -730,7 +735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.2588235, b: 0.6023033, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1050,7 +1055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.97979045, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.5102248, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

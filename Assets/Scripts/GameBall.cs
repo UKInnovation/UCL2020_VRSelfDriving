@@ -14,15 +14,15 @@ namespace OculusBallGame
         private Vector3 currentDirection = new Vector3(0, 0, 0);
 
 
-        void Update()
+        void FixedUpdate()
         {
-            transform.localPosition += currentDirection * 0.8f;
+            transform.localPosition += currentDirection * magnitude;
         }
         public void OnGameStart()
         {
             Vector3 random_direction = Random.onUnitSphere;
-            random_direction = Vector3.ProjectOnPlane(random_direction, transform.forward);
-            random_direction = (random_direction + transform.forward).normalized;
+            random_direction = Vector3.ProjectOnPlane(random_direction, transform.forward).normalized;
+            random_direction = (random_direction + 1.5f * transform.forward);
             currentDirection = random_direction;
         }
 
@@ -45,6 +45,7 @@ namespace OculusBallGame
             else if (ObjectName.Equals("Inner"))
             {
                 currentDirection = new Vector3(currentDirection.x, currentDirection.y, -currentDirection.z);
+                magnitude += 0.01f;
             }
             else if (!ObjectName.Equals("HandLeft") && !ObjectName.Equals("HandRight") && !ObjectName.Contains("Rail"))
             {

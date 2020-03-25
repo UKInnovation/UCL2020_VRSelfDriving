@@ -25,7 +25,7 @@ public class SceneLoader : MonoBehaviour
             float progress = counter / 1000;
             LoadingBar.fillAmount = progress;
             percentage.text = (Convert.ToInt32(counter / 10)).ToString() + "%";
-            counter++;
+            counter += 1;
             yield return null;
         }
         SceneManager.LoadScene(SceneName);
